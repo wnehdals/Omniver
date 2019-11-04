@@ -9,7 +9,7 @@ public class Climate {
     @SerializedName("weather")
     @Expose
     public ArrayList<Weather> weather;
-    class Weather {
+    public class Weather {
         @SerializedName("id")
         public String id;
         @SerializedName("main")
@@ -39,7 +39,7 @@ public class Climate {
     @Expose
     public Main main;
 
-    class Main {
+    public class Main {
         @SerializedName("temp")
         public Double temp;
         @SerializedName("pressure")
@@ -50,6 +50,26 @@ public class Climate {
         public Double temp_min;
         @SerializedName("temp_max")
         public Double temp_max;
+
+        public void setTemp(Double temp) {
+            this.temp = temp;
+        }
+
+        public void setPressure(Integer pressure) {
+            this.pressure = pressure;
+        }
+
+        public void setHumidity(Integer humidity) {
+            this.humidity = humidity;
+        }
+
+        public void setTemp_min(Double temp_min) {
+            this.temp_min = temp_min;
+        }
+
+        public void setTemp_max(Double temp_max) {
+            this.temp_max = temp_max;
+        }
 
         public Double getTemp() {
             return temp;
@@ -76,7 +96,7 @@ public class Climate {
     @Expose
     public Wind wind;
 
-    class Wind{
+    public class Wind{
         @SerializedName("speed")
         public Double speed;
         @SerializedName("deg")
