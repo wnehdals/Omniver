@@ -1,18 +1,17 @@
-package com.example.omniver;
+package com.example.omniver.main_service;
 
 import android.os.Bundle;
 
+import com.example.omniver.base.BottomNavigationActivity;
+import com.example.omniver.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
-
-public class MainActivity extends BottomNavigationActivity {
+public class MainActivity extends BottomNavigationActivity implements MainContract.View{
     private BottomNavListener bottomNavListener;
+
     private BottomNavigationView navView;
+    private MainPresenter mainPresenter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,5 +20,16 @@ public class MainActivity extends BottomNavigationActivity {
         navView = findViewById(R.id.nav_view);
         navView.setOnNavigationItemSelectedListener(bottomNavListener);
     }
+    protected void init(){
+        mainPresenter = new MainPresenter(this,new MainInteractor());
+        mainPresenter.setView(this);
+        mainPresenter.getWeatherData();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+    }
+
 
 }

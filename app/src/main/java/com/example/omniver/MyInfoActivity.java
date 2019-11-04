@@ -1,9 +1,8 @@
 package com.example.omniver;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 
+import com.example.omniver.base.BottomNavigationActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MyInfoActivity extends BottomNavigationActivity {

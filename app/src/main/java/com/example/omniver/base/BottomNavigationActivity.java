@@ -1,17 +1,17 @@
-package com.example.omniver;
+package com.example.omniver.base;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import com.example.omniver.CategoryActivity;
+import com.example.omniver.MyInfoActivity;
+import com.example.omniver.R;
+import com.example.omniver.main_service.MainActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
 
 public class BottomNavigationActivity extends AppCompatActivity {
 
@@ -32,7 +32,7 @@ public class BottomNavigationActivity extends AppCompatActivity {
         */
 
     }
-    protected class BottomNavListener implements BottomNavigationView.OnNavigationItemSelectedListener{
+     public class BottomNavListener implements BottomNavigationView.OnNavigationItemSelectedListener{
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
