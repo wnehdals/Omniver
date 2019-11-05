@@ -40,6 +40,7 @@ public class MainActivity extends BottomNavigationActivity implements MainContra
     private MainPresenter mainPresenter;
     private GpsTracker gpsTracker;
     private Climate climate;
+    private MainInteractor mainInteractor;
     TextView textView;
     private static final int GPS_ENABLE_REQUEST_CODE = 2001;
     private static final int PERMISSIONS_REQUEST_CODE = 100;
@@ -63,10 +64,12 @@ public class MainActivity extends BottomNavigationActivity implements MainContra
     }
     protected void init(){
         textView = (TextView)findViewById(R.id.temp);
-        //mainPresenter = new MainPresenter(this,new MainInteractor());
+        mainInteractor = new MainInteractor();
+        mainPresenter = new MainPresenter(this,mainInteractor);
         //mainPresenter.setView(this);
 
     }
+    /*
     public Climate readWeatherData(double latitude, double longitude){
         final Retrofit client = new Retrofit.Builder().baseUrl("http://api.openweathermap.org").addConverterFactory(GsonConverterFactory.create()).build();
 
@@ -101,15 +104,17 @@ public class MainActivity extends BottomNavigationActivity implements MainContra
         return climate;
     }
 
+     */
+
     @Override
     protected void onStart() {
         gpsTracker = new GpsTracker(MainActivity.this);
 
         double latitude = gpsTracker.getLatitude();
         double longitude = gpsTracker.getLongitude();
-        //mainPresenter.getWeatherData(latitude,longitude);
-        readWeatherData(latitude,longitude);
-        //textView.setText(Double.toString(climate.getMain().getTemp()));
+        mainPresenter.getWeatherData(latitude,longitude);
+        //readWeatherData(latitude,longitude);
+
         super.onStart();
     }
 
@@ -118,6 +123,7 @@ public class MainActivity extends BottomNavigationActivity implements MainContra
     public void onReceiveClimateData(Climate climateData) {
         //Log.e("onRecieve", "불림");
         climate = climateData;
+        textView.setText(Double.toString(climate.getMain().getTemp()));
         //Log.e("onRecieve", Double.toString(climate.getMain().getTemp()));
 
     }
