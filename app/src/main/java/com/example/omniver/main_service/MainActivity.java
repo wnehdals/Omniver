@@ -95,12 +95,19 @@ public class MainActivity extends BottomNavigationActivity implements MainContra
     public void onReceiveClimateData(Climate climateData) {
         //Log.e("onRecieve", "불림");
         climate = climateData;
-        Glide.with(this).load("http://openweathermap.org/img/wn/10d@2x.png").into(weatherIcon);
+        //Glide.with(this).load("http://openweathermap.org/img/wn/10d@2x.png").into(weatherIcon);
+        weatherIconSelect(climate.getWeather().get(0).getIcon());
         //collaspingLayout.setBackgroundResource(R.drawable.ic_logo);
         //textView.setText(Double.toString(climate.getMain().getTemp()));
         //Log.e("onRecieve", Double.toString(climate.getMain().getTemp()));
 
     }
+    public void weatherIconSelect(String description){
+        String iconType = description.replace("n","d");
+        Log.e("iconType", iconType);
+        Glide.with(this).load("http://openweathermap.org/img/wn/"+iconType+".png").into(weatherIcon);
+    }
+
     @Override
     public void onRequestPermissionsResult(int permsRequestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         if ( permsRequestCode == PERMISSIONS_REQUEST_CODE && grantResults.length == REQUIRED_PERMISSIONS.length) {
