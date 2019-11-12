@@ -10,6 +10,8 @@
     <color name="light_beige">#F5F1EC</color>
     <color name="kaki">#6D7E70</color>
     <color name="yellow">#FBC24C</color>
+    <color name="deep_yellow">#DB8F23</color>
+    <color name="light_yellow">#E6D7C3</color>
     <color name="gray">#474747</color>
 
 </resources>
