@@ -1,5 +1,6 @@
 package com.example.omniver.main_service;
 
+import android.content.Context;
 import android.util.Log;
 
 import com.example.omniver.model.Climate;
@@ -17,6 +18,9 @@ public class MainPresenter implements MainContract.Presenter{
     public MainPresenter(MainContract.View mainView, MainInteractor mainInteractor) {
         this.mainView = mainView;
         this.mainInteractor = mainInteractor;
+    }
+    public void getWeatherIcon(Context context){
+
     }
 
 

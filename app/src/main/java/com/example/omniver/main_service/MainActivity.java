@@ -9,7 +9,9 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.text.Layout;
 import android.util.Log;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,10 +19,12 @@ import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.bumptech.glide.Glide;
 import com.example.omniver.GpsTracker;
 import com.example.omniver.base.BottomNavigationActivity;
 import com.example.omniver.R;
 import com.example.omniver.model.Climate;
+import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.io.IOException;
@@ -42,6 +46,8 @@ public class MainActivity extends BottomNavigationActivity implements MainContra
     private Climate climate;
     private MainInteractor mainInteractor;
     TextView textView;
+    private CollapsingToolbarLayout collaspingLayout;
+    private ImageView weatherIcon;
     private static final int GPS_ENABLE_REQUEST_CODE = 2001;
     private static final int PERMISSIONS_REQUEST_CODE = 100;
     String[] REQUIRED_PERMISSIONS = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION};
@@ -63,48 +69,14 @@ public class MainActivity extends BottomNavigationActivity implements MainContra
         init();
     }
     protected void init(){
-        textView = (TextView)findViewById(R.id.temp);
+        weatherIcon = (ImageView)findViewById(R.id.weather_icon);
+        collaspingLayout = (CollapsingToolbarLayout)findViewById(R.id.collasing_toolbar);
+        //textView = (TextView)findViewById(R.id.temp);
         mainInteractor = new MainInteractor();
         mainPresenter = new MainPresenter(this,mainInteractor);
         //mainPresenter.setView(this);
 
     }
-    /*
-    public Climate readWeatherData(double latitude, double longitude){
-        final Retrofit client = new Retrofit.Builder().baseUrl("http://api.openweathermap.org").addConverterFactory(GsonConverterFactory.create()).build();
-
-        ApiInterface service = client.create(ApiInterface.class);
-        Call<Climate> call = service.repo("aa6922d8cb10d11756abb9a69fa3649e", Double.valueOf(latitude), Double.valueOf(longitude));
-        call.enqueue(new Callback<Climate>() {
-            @Override
-            public void onResponse(Call<Climate> call, Response<Climate> response) {
-                Log.e("readWeatherdata","if");
-                if (response.isSuccessful()) {
-                    climate = response.body();
-                    double tempAverage = climate.getMain().getTemp()-273.15;    //켈빈에서 섭씨로 바꾸는 작업
-                    double tempMin = climate.getMain().getTemp_min()-273.15;
-                    double tempMax = climate.getMain().getTemp_max()-273.15;
-                    Log.e("readWeatherdata",Double.toString(tempAverage));
-                    climate.getMain().setTemp(tempAverage);                     //섭씨값으로 수정
-                    climate.getMain().setTemp_min(tempMin);
-                    climate.getMain().setTemp_max(tempMax);
-                    //Log.e("현재 온도",Double.toString(tempAverage));
-                    //Log.e("현재 위치",repo.getName());
-                } else {
-                    Log.e("readWeatherdata","else");
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Climate> call, Throwable t) {
-                Log.e("fali","fail");
-            }
-
-        });
-        return climate;
-    }
-
-     */
 
     @Override
     protected void onStart() {
@@ -123,7 +95,9 @@ public class MainActivity extends BottomNavigationActivity implements MainContra
     public void onReceiveClimateData(Climate climateData) {
         //Log.e("onRecieve", "불림");
         climate = climateData;
-        textView.setText(Double.toString(climate.getMain().getTemp()));
+        Glide.with(this).load("http://openweathermap.org/img/wn/10d@2x.png").into(weatherIcon);
+        //collaspingLayout.setBackgroundResource(R.drawable.ic_logo);
+        //textView.setText(Double.toString(climate.getMain().getTemp()));
         //Log.e("onRecieve", Double.toString(climate.getMain().getTemp()));
 
     }

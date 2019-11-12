@@ -10,4 +10,5 @@ public interface ApiInterface {
     @GET("/data/2.5/weather")
     Call<Climate> repo(@Query("appid") String appid, @Query("lat") double lat, @Query("lon") double lon);
 
+
 }
