@@ -38,8 +38,7 @@ public class MainPresenter implements MainContract.Presenter{
                     climate.getMain().setTemp(tempAverage);                     //섭씨값으로 수정
                     climate.getMain().setTemp_min(tempMin);
                     climate.getMain().setTemp_max(tempMax);
-                    //Log.e("현재 온도",Double.toString(tempAverage));
-                    //Log.e("현재 위치",repo.getName());
+                    Log.e("mainPresenter - 현재 온도",Double.toString(tempAverage));
                     mainView.onReceiveClimateData(climate);
                 } else {
                     Log.e("readWeatherdata","else");

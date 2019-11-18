@@ -19,12 +19,56 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
-            <ImageView
-                android:id="@+id/weather_icon"
-                android:layout_width="match_parent"
-                android:layout_height="144dp">
 
-            </ImageView>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="144dp"
+                android:background="@drawable/bg_yellow_gradient"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:id="@+id/weather_icon"
+                        android:layout_width="match_parent"
+                        android:layout_height="144dp">
+
+                    </ImageView>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/description"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="정보없음" />
+
+                    <TextView
+                        android:id="@+id/humidity"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="정보없음" />
+
+                    <TextView
+                        android:id="@+id/windspeed"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="정보없음" />
+
+                </LinearLayout>
+
+            </LinearLayout>
 
 
             <androidx.appcompat.widget.Toolbar
@@ -32,7 +76,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 app:title="Omniver">
-
 
 
             </androidx.appcompat.widget.Toolbar>
@@ -46,6 +89,198 @@
         android:fillViewport="true"
         android:scrollbars="none"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@color/light_beige"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="30dp"
+                        android:layout_height="match_parent"
+                        android:text="" />
+
+                    <TextView
+                        android:id="@+id/current_place_info"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="위치정보를 불러올수 없습니다"></TextView>
+
+                </LinearLayout>
+                <!-- 하얀색-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="180dp"
+                    android:background="@color/light_beige"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="20dp"
+                        android:layout_height="match_parent" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/bg_white_radius_24"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="30dp"
+
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="40dp"
+                                android:layout_height="match_parent" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="오늘 날씨" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="150dp"
+                            android:orientation="horizontal">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="100dp"
+                                    android:layout_height="30dp"
+                                    android:layout_gravity="center"
+                                    android:background="@drawable/bg_yellow_top_radius_18"
+                                    android:gravity="center"
+                                    android:text="최저온도" />
+
+                                <TextView
+                                    android:id="@+id/lowest_temp"
+                                    android:layout_width="100dp"
+                                    android:layout_height="80dp"
+                                    android:layout_gravity="center"
+                                    android:background="@drawable/bg_beige_bottom_radius_18"
+                                    android:gravity="center"
+                                    android:text="정보없음" />
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="100dp"
+                                    android:layout_height="30dp"
+                                    android:layout_gravity="center"
+                                    android:background="@drawable/bg_yellow_top_radius_18"
+                                    android:gravity="center"
+                                    android:text="평균온도" />
+
+                                <TextView
+                                    android:id="@+id/average_temp"
+                                    android:layout_width="100dp"
+                                    android:layout_height="80dp"
+                                    android:layout_gravity="center"
+                                    android:background="@drawable/bg_beige_bottom_radius_18"
+                                    android:gravity="center"
+                                    android:text="정보없음" />
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="100dp"
+                                    android:layout_height="30dp"
+                                    android:layout_gravity="center"
+                                    android:background="@drawable/bg_yellow_top_radius_18"
+                                    android:gravity="center"
+                                    android:text="최고온도" />
+
+                                <TextView
+                                    android:id="@+id/highest_temp"
+                                    android:layout_width="100dp"
+                                    android:layout_height="80dp"
+                                    android:layout_gravity="center"
+                                    android:background="@drawable/bg_beige_bottom_radius_18"
+                                    android:gravity="center"
+                                    android:text="정보없음" />
+
+                            </LinearLayout>
+
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="20dp"
+                        android:layout_height="match_parent" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:background="@color/light_beige">
+                </LinearLayout>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:orientation="horizontal"
+                android:gravity="center">
+                <TextView
+                    android:layout_width="20dp"
+                    android:layout_height="match_parent">
+                </TextView>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:background="@drawable/bg_kaki_radius_24">
+
+                </LinearLayout>
+                <TextView
+                    android:layout_width="20dp"
+                    android:layout_height="match_parent">
+                </TextView>
+            </LinearLayout>
+
+
+
+
+        </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>
 

@@ -10,14 +10,23 @@
     tools:context=".CategoryActivity">
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="544dp">
+        android:layout_height="544dp"
+        android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/textView"
+
+
+        <Button
+            android:id="@+id/take_photo_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="category" />
+            android:text="사진찍기" />
+
+        <Button
+            android:id="@+id/temp_cloth_dictionary_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="기온 별 옷차림 보기" />
+
     </LinearLayout>
 
     <include
