@@ -39,18 +39,24 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends BottomNavigationActivity implements MainContract.View{
     private BottomNavListener bottomNavListener;
-
+    private TextView descriptionTextView;
+    private TextView humidityTextView;
+    private TextView windSpeedTextView;
     private BottomNavigationView navView;
     private MainPresenter mainPresenter;
     private GpsTracker gpsTracker;
     private Climate climate;
     private MainInteractor mainInteractor;
+    private TextView currentPlaceInfoTextView;
     TextView textView;
     private CollapsingToolbarLayout collaspingLayout;
     private ImageView weatherIcon;
     private static final int GPS_ENABLE_REQUEST_CODE = 2001;
     private static final int PERMISSIONS_REQUEST_CODE = 100;
     String[] REQUIRED_PERMISSIONS = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION};
+    private TextView lowestTempTextView;
+    private TextView averageTempTextView;
+    private TextView highestTempTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +75,13 @@ public class MainActivity extends BottomNavigationActivity implements MainContra
         init();
     }
     protected void init(){
+        lowestTempTextView = (TextView)findViewById(R.id.lowest_temp);
+        averageTempTextView = (TextView)findViewById(R.id.average_temp);
+        highestTempTextView = (TextView)findViewById(R.id.highest_temp);
+        currentPlaceInfoTextView = (TextView)findViewById(R.id.current_place_info);
+        descriptionTextView = (TextView)findViewById(R.id.description);
+        humidityTextView = (TextView)findViewById(R.id.humidity);
+        windSpeedTextView = (TextView)findViewById(R.id.windspeed);
         weatherIcon = (ImageView)findViewById(R.id.weather_icon);
         collaspingLayout = (CollapsingToolbarLayout)findViewById(R.id.collasing_toolbar);
         //textView = (TextView)findViewById(R.id.temp);
@@ -84,10 +97,47 @@ public class MainActivity extends BottomNavigationActivity implements MainContra
 
         double latitude = gpsTracker.getLatitude();
         double longitude = gpsTracker.getLongitude();
+        currentPlaceInfoTextView.setText(getCurrentAddress(latitude,longitude));
+        Log.e("MainActivity",Double.toString(latitude));
+        Log.e("MainActivity",Double.toString(longitude));
         mainPresenter.getWeatherData(latitude,longitude);
         //readWeatherData(latitude,longitude);
+        //getWeather(latitude,longitude);
 
         super.onStart();
+    }
+    public void getWeather(double latitude, double longitude){
+        final Retrofit client = new Retrofit.Builder().baseUrl("http://api.openweathermap.org").addConverterFactory(GsonConverterFactory.create()).build();
+
+        ApiInterface service = client.create(ApiInterface.class);
+        Call<Climate> call = service.repo("aa6922d8cb10d11756abb9a69fa3649e", Double.valueOf(latitude), Double.valueOf(longitude));
+        call.enqueue(new Callback<Climate>(){
+            @Override
+            public void onResponse(Call<Climate> call, Response<Climate> response) {
+                Log.e("readWeatherdata","if");
+                if (response.isSuccessful()) {
+                    climate = response.body();
+                    double tempAverage = climate.getMain().getTemp()-273.15;    //켈빈에서 섭씨로 바꾸는 작업
+                    double tempMin = climate.getMain().getTemp_min()-273.15;
+                    double tempMax = climate.getMain().getTemp_max()-273.15;
+
+                    climate.getMain().setTemp(tempAverage);                     //섭씨값으로 수정
+                    climate.getMain().setTemp_min(tempMin);
+                    climate.getMain().setTemp_max(tempMax);
+                    Log.e("mainPresenter - 현재 온도",Double.toString(tempAverage));
+                    //mainView.onReceiveClimateData(climate);
+                } else {
+                    Log.e("readWeatherdata","else");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Climate> call, Throwable t) {
+                Log.e("fali","fail");
+            }
+
+        });
+
     }
 
 
@@ -95,17 +145,24 @@ public class MainActivity extends BottomNavigationActivity implements MainContra
     public void onReceiveClimateData(Climate climateData) {
         //Log.e("onRecieve", "불림");
         climate = climateData;
+        descriptionTextView.setText("오늘 날씨 : "+climate.getWeather().get(0).getMainWeather());
+        humidityTextView.setText("습도 : "+Integer.toString(climate.getMain().getHumidity()));
+        windSpeedTextView.setText("풍속 : "+Double.toString(climate.getWind().getSpeed()));
         //Glide.with(this).load("http://openweathermap.org/img/wn/10d@2x.png").into(weatherIcon);
         weatherIconSelect(climate.getWeather().get(0).getIcon());
+        lowestTempTextView.setText(String.format("%.1f",Double.toString(climate.getMain().getTemp_min())));
+        averageTempTextView.setText(String.format("%.1f",Double.toString(climate.getMain().getTemp())));
+        highestTempTextView.setText(String.format("%.1f",Double.toString(climate.getMain().getTemp_max())));
         //collaspingLayout.setBackgroundResource(R.drawable.ic_logo);
         //textView.setText(Double.toString(climate.getMain().getTemp()));
         //Log.e("onRecieve", Double.toString(climate.getMain().getTemp()));
 
     }
+
     public void weatherIconSelect(String description){
         String iconType = description.replace("n","d");
         Log.e("iconType", iconType);
-        Glide.with(this).load("http://openweathermap.org/img/wn/"+iconType+".png").into(weatherIcon);
+        Glide.with(this).load("http://openweathermap.org/img/wn/"+iconType+"@2x.png").into(weatherIcon);
     }
 
     @Override
