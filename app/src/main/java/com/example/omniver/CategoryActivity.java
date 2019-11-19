@@ -98,7 +98,7 @@ public class CategoryActivity extends BottomNavigationActivity implements View.O
     }
 
 
- /*
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
@@ -111,7 +111,7 @@ public class CategoryActivity extends BottomNavigationActivity implements View.O
 
 
 
-
+/*
             Bitmap bitmap = BitmapFactory.decodeFile(currentPhotoPath);
             ExifInterface exif = null;
 
@@ -133,7 +133,9 @@ public class CategoryActivity extends BottomNavigationActivity implements View.O
 
             ((ImageView)findViewById(R.id.imageView)).setImageBitmap(rotate(bitmap, exifDegree));
 
+ */
+
         }
     }
-    */
+
 }

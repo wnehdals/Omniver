@@ -150,9 +150,12 @@ public class MainActivity extends BottomNavigationActivity implements MainContra
         windSpeedTextView.setText("풍속 : "+Double.toString(climate.getWind().getSpeed()));
         //Glide.with(this).load("http://openweathermap.org/img/wn/10d@2x.png").into(weatherIcon);
         weatherIconSelect(climate.getWeather().get(0).getIcon());
-        lowestTempTextView.setText(String.format("%.1f",Double.toString(climate.getMain().getTemp_min())));
-        averageTempTextView.setText(String.format("%.1f",Double.toString(climate.getMain().getTemp())));
-        highestTempTextView.setText(String.format("%.1f",Double.toString(climate.getMain().getTemp_max())));
+        String minTemp = String.format("%.1f",climate.getMain().getTemp_min());
+        String temp = String.format("%.1f",climate.getMain().getTemp());
+        String maxTemp = String.format("%.1f",climate.getMain().getTemp_max());
+        lowestTempTextView.setText(minTemp);
+        averageTempTextView.setText(temp);
+        highestTempTextView.setText(maxTemp);
         //collaspingLayout.setBackgroundResource(R.drawable.ic_logo);
         //textView.setText(Double.toString(climate.getMain().getTemp()));
         //Log.e("onRecieve", Double.toString(climate.getMain().getTemp()));

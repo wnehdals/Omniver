@@ -6,17 +6,20 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.example.omniver.main_service.MainActivity;
 
 public class SplashActivity extends Activity {
-
+    private ImageView splachIcon;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_splash);
-
+        splachIcon = (ImageView)findViewById(R.id.splach_icon);
+        //Glide.with(this).load(R.drawable.ic_logo).into(splachIcon);
         Handler hd = new Handler();
         hd.postDelayed(new splashhandler(), 3000); // 1초 후에 hd handler 실행  3000ms = 3초
 
