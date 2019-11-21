@@ -42,7 +42,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MyInfoActivity" />
+        <activity android:name=".myinfo_service.MyInfoActivity" />
         <activity
             android:name=".base.BottomNavigationActivity"
             android:label="@string/title_activity_bottom_navigation" />

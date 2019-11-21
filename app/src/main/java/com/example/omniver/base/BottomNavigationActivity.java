@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.example.omniver.CategoryActivity;
-import com.example.omniver.MyInfoActivity;
+import com.example.omniver.myinfo_service.MyInfoActivity;
 import com.example.omniver.R;
 import com.example.omniver.main_service.MainActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
