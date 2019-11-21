@@ -22,7 +22,7 @@
             android:text="사진찍기" />
 
         <Button
-            android:id="@+id/temp_cloth_dictionary_button"
+            android:id="@+id/recommended_list_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="기온 별 옷차림 보기" />
