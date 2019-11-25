@@ -37,6 +37,8 @@ class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.RecyclerViewH
         holder.clothesText.setText(clothes[position]);
         holder.temp1Text.setText(temps1[position] + "℃");
         holder.temp2Text.setText("~ " + temps2[position] + "℃");
+        if (position == 0) holder.temp2Text.setText("");
+        if (position == getItemCount()) holder.temp1Text.setText("");
     }
 
     @Override
