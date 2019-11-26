@@ -21,7 +21,7 @@ public class SplashActivity extends Activity {
         splachIcon = (ImageView)findViewById(R.id.splach_icon);
         //Glide.with(this).load(R.drawable.ic_logo).into(splachIcon);
         Handler hd = new Handler();
-        hd.postDelayed(new splashhandler(), 3000); // 1초 후에 hd handler 실행  3000ms = 3초
+        hd.postDelayed(new splashhandler(), 1000); // 1초 후에 hd handler 실행  3000ms = 3초
 
     }
 

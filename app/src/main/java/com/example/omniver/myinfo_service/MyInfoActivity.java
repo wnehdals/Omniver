@@ -1,9 +1,13 @@
 package com.example.omniver.myinfo_service;
 
+import android.app.ActionBar;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Toolbar;
 
 import androidx.viewpager.widget.ViewPager;
 
+import com.example.omniver.CustomActionbar;
 import com.example.omniver.R;
 import com.example.omniver.base.BottomNavigationActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -28,6 +32,7 @@ public class MyInfoActivity extends BottomNavigationActivity {
         init();
     }
     public void init(){
+
         firstRankFragment = new FirstRankFragment();
         secondRankFragment = new SecondRankFragment();
         thirdRankFragment = new ThirdRankFragment();
