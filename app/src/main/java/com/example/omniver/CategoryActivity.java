@@ -40,7 +40,7 @@ public class CategoryActivity extends BottomNavigationActivity implements View.O
     }
     public void init(){
         takePhotoButton = (Button)findViewById(R.id.take_photo_button);
-        tempClothDictionaryButton = (Button)findViewById(R.id.temp_cloth_dictionary_button);
+        tempClothDictionaryButton = (Button)findViewById(R.id.recommended_list_button);
         takePhotoButton.setOnClickListener(this);
         tempClothDictionaryButton.setOnClickListener(this);
     }
@@ -66,7 +66,9 @@ public class CategoryActivity extends BottomNavigationActivity implements View.O
                     }
                 }
                 break;
-            case R.id.temp_cloth_dictionary_button:
+            case R.id.recommended_list_button:
+                Intent recommendedListIntent = new Intent(this, RecommendedListActivity.class);
+                startActivity(recommendedListIntent);
                 break;
         }
     }
