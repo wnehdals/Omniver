@@ -17,9 +17,10 @@
         android:networkSecurityConfig="@xml/network_security_config"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/customTheme">
         <activity android:name=".RecommendedListActivity"></activity>
-        <activity android:name=".EvaluationActivity" />
+        <activity android:name=".evaluate_service.EvaluationActivity"
+            android:label="@string/app_name_evaluate"/>
 
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -41,14 +42,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".myinfo_service.MyInfoActivity"
-            android:theme="@style/myinfoTheme"/>
+        <activity android:name=".myinfo_service.MyInfoActivity" />
         <activity
             android:name=".base.BottomNavigationActivity"
             android:label="@string/title_activity_bottom_navigation" />
-        <activity android:name=".CategoryActivity" />
+        <activity android:name=".CategoryActivity"
+            android:label="@string/app_name_category"/>
         <activity
             android:name=".main_service.MainActivity"
+            android:theme="@style/AppTheme"
             android:label="@string/app_name" />
     </application>
 

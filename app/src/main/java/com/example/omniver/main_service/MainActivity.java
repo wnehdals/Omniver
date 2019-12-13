@@ -31,6 +31,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 
+import io.realm.Realm;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -48,7 +49,7 @@ public class MainActivity extends BottomNavigationActivity implements MainContra
     private Climate climate;
     private MainInteractor mainInteractor;
     private TextView currentPlaceInfoTextView;
-    TextView textView;
+    public static double tempAverage;
     private CollapsingToolbarLayout collaspingLayout;
     private ImageView weatherIcon;
     private static final int GPS_ENABLE_REQUEST_CODE = 2001;
@@ -57,6 +58,7 @@ public class MainActivity extends BottomNavigationActivity implements MainContra
     private TextView lowestTempTextView;
     private TextView averageTempTextView;
     private TextView highestTempTextView;
+    private Realm realm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,6 +89,7 @@ public class MainActivity extends BottomNavigationActivity implements MainContra
         //textView = (TextView)findViewById(R.id.temp);
         mainInteractor = new MainInteractor();
         mainPresenter = new MainPresenter(this,mainInteractor);
+        realm.init(this);
         //mainPresenter.setView(this);
 
     }
@@ -117,7 +120,7 @@ public class MainActivity extends BottomNavigationActivity implements MainContra
                 Log.e("readWeatherdata","if");
                 if (response.isSuccessful()) {
                     climate = response.body();
-                    double tempAverage = climate.getMain().getTemp()-273.15;    //켈빈에서 섭씨로 바꾸는 작업
+                    tempAverage = climate.getMain().getTemp()-273.15;    //켈빈에서 섭씨로 바꾸는 작업
                     double tempMin = climate.getMain().getTemp_min()-273.15;
                     double tempMax = climate.getMain().getTemp_max()-273.15;
 
@@ -145,6 +148,7 @@ public class MainActivity extends BottomNavigationActivity implements MainContra
     public void onReceiveClimateData(Climate climateData) {
         //Log.e("onRecieve", "불림");
         climate = climateData;
+        tempAverage = climate.getMain().getTemp();
         descriptionTextView.setText("오늘 날씨 : "+climate.getWeather().get(0).getMainWeather());
         humidityTextView.setText("습도 : "+Integer.toString(climate.getMain().getHumidity()));
         windSpeedTextView.setText("풍속 : "+Double.toString(climate.getWind().getSpeed()));
@@ -346,5 +350,11 @@ public class MainActivity extends BottomNavigationActivity implements MainContra
 
         return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
                 || locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        realm.close();
     }
 }

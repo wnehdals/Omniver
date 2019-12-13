@@ -129,5 +129,8 @@ public class Climate {
     public String getName() {
         return name;
     }
+    public Climate getInstanceClimate(){
+        return this;
+    }
 }
 
