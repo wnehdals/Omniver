@@ -15,6 +15,7 @@ import com.example.omniver.base.BottomNavigationActivity;
 import com.example.omniver.main_service.MainActivity;
 import com.example.omniver.model.Climate;
 import com.example.omniver.model.Picture;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import io.realm.Realm;
 
@@ -28,6 +29,8 @@ public class EvaluationActivity extends BottomNavigationActivity implements View
     private float grade;
     private EvaluationInteractor evaluationInteractor;
     private EvaluationPresenter evaluationPresenter;
+    private BottomNavListener bottomNavListener;
+    private BottomNavigationView navView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +44,9 @@ public class EvaluationActivity extends BottomNavigationActivity implements View
     }
     public void init(){
         grade = 0;
+        bottomNavListener = new BottomNavListener();
+        navView = findViewById(R.id.nav_view);
+        navView.setOnNavigationItemSelectedListener(bottomNavListener);
         saveButton = (Button)findViewById(R.id.save_button);
         saveButton.setOnClickListener(this);
         upRatingbar = (RatingBar)findViewById(R.id.ratingbar_1);
