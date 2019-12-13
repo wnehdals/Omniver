@@ -2,56 +2,22 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.omniver">
 
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.VIBRATE" />
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:networkSecurityConfig="@xml/network_security_config"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/customTheme">
-        <activity android:name=".RecommendedListActivity"></activity>
-        <activity android:name=".evaluate_service.EvaluationActivity"
-            android:label="@string/app_name_evaluate"/>
-
-        <provider
-            android:name="androidx.core.content.FileProvider"
-            android:authorities="com.example.omniver"
-            android:exported="false"
-            android:grantUriPermissions="true">
-            <meta-data
-                android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths" />
-        </provider>
-
+        android:theme="@style/AppTheme">
         <activity
-            android:name=".SplashActivity"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
+            android:name=".MainActivity"
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".myinfo_service.MyInfoActivity" />
-        <activity
-            android:name=".base.BottomNavigationActivity"
-            android:label="@string/title_activity_bottom_navigation" />
-        <activity android:name=".CategoryActivity"
-            android:label="@string/app_name_category"/>
-        <activity
-            android:name=".main_service.MainActivity"
-            android:theme="@style/AppTheme"
-            android:label="@string/app_name" />
     </application>
 
 </manifest>
