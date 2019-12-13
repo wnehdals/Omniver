@@ -59,6 +59,10 @@ public class MainActivity extends BottomNavigationActivity implements MainContra
     private TextView averageTempTextView;
     private TextView highestTempTextView;
     private Realm realm;
+    private TextView recommendUpText;
+    private TextView recommendDownText;
+    private ImageView recommendUpImageView;
+    private ImageView recommendDownImageView;
 
 
     @Override
@@ -91,6 +95,10 @@ public class MainActivity extends BottomNavigationActivity implements MainContra
         mainInteractor = new MainInteractor();
         mainPresenter = new MainPresenter(this,mainInteractor);
         realm.init(this);
+        recommendUpImageView = (ImageView)findViewById(R.id.recommend_cloth_up);
+        recommendDownImageView = (ImageView)findViewById(R.id.recommend_cloth_down);
+        recommendDownText = (TextView)findViewById(R.id.recommend_cloth_down_text);
+        recommendUpText = (TextView)findViewById(R.id.recommend_cloth_up_text);
         //mainPresenter.setView(this);
 
     }
@@ -110,39 +118,7 @@ public class MainActivity extends BottomNavigationActivity implements MainContra
 
         super.onStart();
     }
-    public void getWeather(double latitude, double longitude){
-        final Retrofit client = new Retrofit.Builder().baseUrl("http://api.openweathermap.org").addConverterFactory(GsonConverterFactory.create()).build();
 
-        ApiInterface service = client.create(ApiInterface.class);
-        Call<Climate> call = service.repo("aa6922d8cb10d11756abb9a69fa3649e", Double.valueOf(latitude), Double.valueOf(longitude));
-        call.enqueue(new Callback<Climate>(){
-            @Override
-            public void onResponse(Call<Climate> call, Response<Climate> response) {
-                Log.e("readWeatherdata","if");
-                if (response.isSuccessful()) {
-                    climate = response.body();
-                    tempAverage = climate.getMain().getTemp()-273.15;    //켈빈에서 섭씨로 바꾸는 작업
-                    double tempMin = climate.getMain().getTemp_min()-273.15;
-                    double tempMax = climate.getMain().getTemp_max()-273.15;
-
-                    climate.getMain().setTemp(tempAverage);                     //섭씨값으로 수정
-                    climate.getMain().setTemp_min(tempMin);
-                    climate.getMain().setTemp_max(tempMax);
-                    Log.e("mainPresenter - 현재 온도",Double.toString(tempAverage));
-                    //mainView.onReceiveClimateData(climate);
-                } else {
-                    Log.e("readWeatherdata","else");
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Climate> call, Throwable t) {
-                Log.e("fali","fail");
-            }
-
-        });
-
-    }
 
 
     @Override
@@ -161,10 +137,75 @@ public class MainActivity extends BottomNavigationActivity implements MainContra
         lowestTempTextView.setText(minTemp);
         averageTempTextView.setText(temp);
         highestTempTextView.setText(maxTemp);
+        recommendClothImageView();
+        recommendClothText();
         //collaspingLayout.setBackgroundResource(R.drawable.ic_logo);
         //textView.setText(Double.toString(climate.getMain().getTemp()));
         //Log.e("onRecieve", Double.toString(climate.getMain().getTemp()));
 
+    }
+    public void recommendClothText(){
+        if(tempAverage > 26.0){
+            recommendUpText.setText("오늘 추천드릴 옷은 나시티, 반바지, 민소매입니다");
+        }else if(23.0<=tempAverage  && tempAverage <= 26.0){
+            recommendUpText.setText("오늘 추천드릴 옷은 반팔, 반바지, 얇은 셔츠입니다");
+        }
+        else if(20.0<=tempAverage  && tempAverage < 23.0){
+            recommendUpText.setText("오늘 추천드릴 옷은 긴팔티, 면바지, 후드티입니다");
+        }
+        else if(17.0<=tempAverage  && tempAverage < 20.0){
+            recommendUpText.setText("오늘 추천드릴 옷은 니트, 맨투맨, 면바지입니다");
+        }
+        else if(12.0<=tempAverage  && tempAverage < 17.0){
+            recommendUpText.setText("오늘 추천드릴 옷은 자켓, 야상입니다");
+        }
+        else if(10.0<=tempAverage  && tempAverage < 12.0){
+            recommendUpText.setText("오늘 추천드릴 옷은 트렌치코트, 야상, 여러겹 입기입니다");
+        }
+        else if(6.0<=tempAverage  && tempAverage < 10.0){
+            recommendUpText.setText("오늘 추천드릴 옷은 코트, 가죽자켓입니다");
+        }
+        else if(0<=tempAverage  && tempAverage < 6.0){
+            recommendUpText.setText("오늘 추천드릴 옷은 패딩, 목도리입니다");
+        }
+    }
+    public void recommendClothImageView(){
+        if(tempAverage > 26.0){
+            Glide.with(this).load(R.mipmap.sleeveless).into(recommendUpImageView);
+            Glide.with(this).load(R.mipmap.shorts).into(recommendDownImageView);
+        }else if(23.0<=tempAverage  && tempAverage <= 26.0){
+            Glide.with(this).load(R.mipmap.casual_t_shirt_).into(recommendUpImageView);
+            Glide.with(this).load(R.mipmap.shorts).into(recommendDownImageView);
+        }
+        else if(20.0<=tempAverage  && tempAverage < 23.0){
+            Glide.with(this).load(R.mipmap.long_sleeves_t_shirt).into(recommendUpImageView);
+            Glide.with(this).load(R.mipmap.long_pants).into(recommendDownImageView);
+        }
+        else if(17.0<=tempAverage  && tempAverage < 20.0){
+            Glide.with(this).load(R.mipmap.neat).into(recommendUpImageView);
+            Glide.with(this).load(R.mipmap.long_pants).into(recommendDownImageView);
+            recommendUpText.setText("오늘 추천드릴 옷은 니트, 맨투맨, 면바지입니다");
+        }
+        else if(12.0<=tempAverage  && tempAverage < 17.0){
+            Glide.with(this).load(R.mipmap.black_jacket).into(recommendUpImageView);
+            Glide.with(this).load(R.mipmap.hoodie).into(recommendDownImageView);
+            recommendUpText.setText("오늘 추천드릴 옷은 자켓, 야상입니다");
+        }
+        else if(10.0<=tempAverage  && tempAverage < 12.0){
+            Glide.with(this).load(R.mipmap.hoodie).into(recommendUpImageView);
+            Glide.with(this).load(R.mipmap.coat).into(recommendDownImageView);
+            recommendUpText.setText("오늘 추천드릴 옷은 트렌치코트, 야상, 여러겹 입기입니다");
+        }
+        else if(6.0<=tempAverage  && tempAverage < 10.0){
+            Glide.with(this).load(R.mipmap.coat).into(recommendUpImageView);
+            Glide.with(this).load(R.mipmap.black_jacket).into(recommendDownImageView);
+            recommendUpText.setText("오늘 추천드릴 옷은 코트, 가죽자켓입니다");
+        }
+        else if(0<=tempAverage  && tempAverage < 6.0){
+            Glide.with(this).load(R.mipmap.winter).into(recommendUpImageView);
+            Glide.with(this).load(R.mipmap.scarf).into(recommendDownImageView);
+            recommendUpText.setText("오늘 추천드릴 옷은 패딩, 목도리입니다");
+        }
     }
 
     public void weatherIconSelect(String description){
