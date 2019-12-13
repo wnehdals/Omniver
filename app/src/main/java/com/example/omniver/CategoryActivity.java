@@ -12,6 +12,7 @@ import android.widget.Button;
 import androidx.core.content.FileProvider;
 
 import com.example.omniver.base.BottomNavigationActivity;
+import com.example.omniver.evaluate_service.EvaluationActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.io.File;
@@ -104,7 +105,7 @@ public class CategoryActivity extends BottomNavigationActivity implements View.O
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-            Intent intent = new Intent(CategoryActivity.this,EvaluationActivity.class);
+            Intent intent = new Intent(CategoryActivity.this, EvaluationActivity.class);
             intent.putExtra("imagePath", currentPhotoPath);
             intent.putExtra("date",timeStamp);
             startActivity(intent);
