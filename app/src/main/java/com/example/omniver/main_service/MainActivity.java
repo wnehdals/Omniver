@@ -60,6 +60,7 @@ public class MainActivity extends BottomNavigationActivity implements MainContra
     private TextView highestTempTextView;
     private Realm realm;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
