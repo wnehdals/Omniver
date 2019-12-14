@@ -31,6 +31,11 @@ import java.util.List;
 import java.util.Locale;
 
 import io.realm.Realm;
+
+
+
+
+
 public class MainActivity extends BottomNavigationActivity implements MainContract.View{
     private BottomNavListener bottomNavListener;
     private TextView descriptionTextView;
@@ -240,8 +245,11 @@ public class MainActivity extends BottomNavigationActivity implements MainContra
                     Toast.makeText(MainActivity.this, "퍼미션이 거부되었습니다. 앱을 다시 실행하여 퍼미션을 허용해주세요.", Toast.LENGTH_LONG).show();
                     finish();
 
+
                 }else {
+
                     Toast.makeText(MainActivity.this, "퍼미션이 거부되었습니다. 설정(앱 정보)에서 퍼미션을 허용해야 합니다. ", Toast.LENGTH_LONG).show();
+
                 }
             }
 
