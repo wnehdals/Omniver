@@ -31,8 +31,6 @@ import java.util.List;
 import java.util.Locale;
 
 import io.realm.Realm;
-
-
 public class MainActivity extends BottomNavigationActivity implements MainContract.View{
     private BottomNavListener bottomNavListener;
     private TextView descriptionTextView;
