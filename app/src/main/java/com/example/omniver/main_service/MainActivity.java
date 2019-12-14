@@ -24,6 +24,7 @@ import com.example.omniver.GpsTracker;
 import com.example.omniver.base.BottomNavigationActivity;
 import com.example.omniver.R;
 import com.example.omniver.model.Climate;
+import com.example.omniver.model.Picture;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -32,6 +33,7 @@ import java.util.List;
 import java.util.Locale;
 
 import io.realm.Realm;
+import io.realm.RealmResults;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -165,7 +167,7 @@ public class MainActivity extends BottomNavigationActivity implements MainContra
         else if(6.0<=tempAverage  && tempAverage < 10.0){
             recommendUpText.setText("오늘 추천드릴 옷은 코트, 가죽자켓입니다");
         }
-        else if(0<=tempAverage  && tempAverage < 6.0){
+        else if(tempAverage < 6.0){
             recommendUpText.setText("오늘 추천드릴 옷은 패딩, 목도리입니다");
         }
     }
@@ -201,7 +203,7 @@ public class MainActivity extends BottomNavigationActivity implements MainContra
             Glide.with(this).load(R.mipmap.black_jacket).into(recommendDownImageView);
             recommendUpText.setText("오늘 추천드릴 옷은 코트, 가죽자켓입니다");
         }
-        else if(0<=tempAverage  && tempAverage < 6.0){
+        else if(tempAverage < 6.0){
             Glide.with(this).load(R.mipmap.winter).into(recommendUpImageView);
             Glide.with(this).load(R.mipmap.scarf).into(recommendDownImageView);
             recommendUpText.setText("오늘 추천드릴 옷은 패딩, 목도리입니다");
@@ -397,6 +399,5 @@ public class MainActivity extends BottomNavigationActivity implements MainContra
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        realm.close();
     }
 }
