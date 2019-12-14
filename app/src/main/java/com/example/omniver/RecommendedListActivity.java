@@ -11,7 +11,7 @@ public class RecommendedListActivity extends AppCompatActivity {
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
 
-    int[][] icons = {
+    final int[][] icons = {
             {R.mipmap.sleeveless, R.mipmap.shorts, R.mipmap.skirt},
             {R.mipmap.shorts, R.mipmap.casual_t_shirt_, R.mipmap.long_sleeves_t_shirt},
             {R.mipmap.long_sleeves_t_shirt, R.mipmap.hoodie, R.mipmap.long_pants},
@@ -21,7 +21,7 @@ public class RecommendedListActivity extends AppCompatActivity {
             {R.mipmap.coat, R.mipmap.black_jacket, R.mipmap.scarf},
             {R.mipmap.winter, R.mipmap.black_jacket, R.mipmap.coat}
     };
-    String[] texts = {
+    final String[] texts = {
             "나시티, 반바지, 민소매 원피스",
             "반팔, 얇은 셔츠, 얇은 긴팔, 반바지, 면바지",
             "긴팔티, 가디건, 후드티, 면바지, 슬랙스, 스키니",
@@ -31,8 +31,8 @@ public class RecommendedListActivity extends AppCompatActivity {
             "코트, 가죽자켓",
             "겨울 옷(야상, 패딩, 목도리 등)"
     };
-    String[] temperatures1 = { "27", "23", "20", "17", "12", "10", "6", "0"};
-    String[] temperatures2 = { "99", "26", "22", "19", "16", "11", "9", "5"};
+    final String[] temperatures1 = { "27", "23", "20", "17", "12", "10", "6", "0"};
+    final String[] temperatures2 = { "99", "26", "22", "19", "16", "11", "9", "5"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

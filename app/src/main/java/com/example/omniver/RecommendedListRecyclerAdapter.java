@@ -46,7 +46,6 @@ class RecommendedListRecyclerAdapter extends RecyclerView.Adapter<RecommendedLis
     @Override
     public void onBindViewHolder(RecyclerViewHolder holder, int position) {
         if (icons[position].length == 3) {
-            //TODO: 아이콘 표시
             Glide.with(holder.icon1).load(icons[position][0]).into(holder.icon1);
             Glide.with(holder.icon2).load(icons[position][1]).into(holder.icon2);
             Glide.with(holder.icon3).load(icons[position][2]).into(holder.icon3);
