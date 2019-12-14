@@ -9,7 +9,6 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.text.Layout;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -32,13 +31,8 @@ import java.util.List;
 import java.util.Locale;
 
 import io.realm.Realm;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
-public class MainActivity extends BottomNavigationActivity implements MainContract.View{
+public class MainActivity extends BottomNavigationActivity implements MainContract.View {
     private BottomNavListener bottomNavListener;
     private TextView descriptionTextView;
     private TextView humidityTextView;
@@ -73,32 +67,31 @@ public class MainActivity extends BottomNavigationActivity implements MainContra
         navView = findViewById(R.id.nav_view);
         navView.setOnNavigationItemSelectedListener(bottomNavListener);
         if (!checkLocationServicesStatus()) {
-
             showDialogForLocationServiceSetting();
-        }else {
-
+        } else {
             checkRunTimePermission();
         }
         init();
     }
-    protected void init(){
-        lowestTempTextView = (TextView)findViewById(R.id.lowest_temp);
-        averageTempTextView = (TextView)findViewById(R.id.average_temp);
-        highestTempTextView = (TextView)findViewById(R.id.highest_temp);
-        currentPlaceInfoTextView = (TextView)findViewById(R.id.current_place_info);
-        descriptionTextView = (TextView)findViewById(R.id.description);
-        humidityTextView = (TextView)findViewById(R.id.humidity);
-        windSpeedTextView = (TextView)findViewById(R.id.windspeed);
-        weatherIcon = (ImageView)findViewById(R.id.weather_icon);
-        collaspingLayout = (CollapsingToolbarLayout)findViewById(R.id.collasing_toolbar);
+
+    protected void init() {
+        lowestTempTextView = (TextView) findViewById(R.id.lowest_temp);
+        averageTempTextView = (TextView) findViewById(R.id.average_temp);
+        highestTempTextView = (TextView) findViewById(R.id.highest_temp);
+        currentPlaceInfoTextView = (TextView) findViewById(R.id.current_place_info);
+        descriptionTextView = (TextView) findViewById(R.id.description);
+        humidityTextView = (TextView) findViewById(R.id.humidity);
+        windSpeedTextView = (TextView) findViewById(R.id.windspeed);
+        weatherIcon = (ImageView) findViewById(R.id.weather_icon);
+        collaspingLayout = (CollapsingToolbarLayout) findViewById(R.id.collasing_toolbar);
         //textView = (TextView)findViewById(R.id.temp);
         mainInteractor = new MainInteractor();
-        mainPresenter = new MainPresenter(this,mainInteractor);
+        mainPresenter = new MainPresenter(this, mainInteractor);
         realm.init(this);
-        recommendUpImageView = (ImageView)findViewById(R.id.recommend_cloth_up);
-        recommendDownImageView = (ImageView)findViewById(R.id.recommend_cloth_down);
-        recommendDownText = (TextView)findViewById(R.id.recommend_cloth_down_text);
-        recommendUpText = (TextView)findViewById(R.id.recommend_cloth_up_text);
+        recommendUpImageView = (ImageView) findViewById(R.id.recommend_cloth_up);
+        recommendDownImageView = (ImageView) findViewById(R.id.recommend_cloth_down);
+        recommendDownText = (TextView) findViewById(R.id.recommend_cloth_down_text);
+        recommendUpText = (TextView) findViewById(R.id.recommend_cloth_up_text);
         //mainPresenter.setView(this);
 
     }
@@ -109,10 +102,10 @@ public class MainActivity extends BottomNavigationActivity implements MainContra
 
         double latitude = gpsTracker.getLatitude();
         double longitude = gpsTracker.getLongitude();
-        currentPlaceInfoTextView.setText(getCurrentAddress(latitude,longitude));
-        Log.e("MainActivity",Double.toString(latitude));
-        Log.e("MainActivity",Double.toString(longitude));
-        mainPresenter.getWeatherData(latitude,longitude);
+        currentPlaceInfoTextView.setText(getCurrentAddress(latitude, longitude));
+        Log.d("MainActivity", Double.toString(latitude));
+        Log.d("MainActivity", Double.toString(longitude));
+        mainPresenter.getWeatherData(latitude, longitude);
         //readWeatherData(latitude,longitude);
         //getWeather(latitude,longitude);
 
@@ -120,20 +113,18 @@ public class MainActivity extends BottomNavigationActivity implements MainContra
     }
 
 
-
     @Override
     public void onReceiveClimateData(Climate climateData) {
-        //Log.e("onRecieve", "불림");
         climate = climateData;
         tempAverage = climate.getMain().getTemp();
-        descriptionTextView.setText("오늘 날씨 : "+climate.getWeather().get(0).getMainWeather());
-        humidityTextView.setText("습도 : "+Integer.toString(climate.getMain().getHumidity()));
-        windSpeedTextView.setText("풍속 : "+Double.toString(climate.getWind().getSpeed()));
+        descriptionTextView.setText("오늘 날씨 : " + climate.getWeather().get(0).getMainWeather());
+        humidityTextView.setText("습도 : " + Integer.toString(climate.getMain().getHumidity()));
+        windSpeedTextView.setText("풍속 : " + Double.toString(climate.getWind().getSpeed()));
         //Glide.with(this).load("http://openweathermap.org/img/wn/10d@2x.png").into(weatherIcon);
         weatherIconSelect(climate.getWeather().get(0).getIcon());
-        String minTemp = String.format("%.1f",climate.getMain().getTemp_min());
-        String temp = String.format("%.1f",climate.getMain().getTemp());
-        String maxTemp = String.format("%.1f",climate.getMain().getTemp_max());
+        String minTemp = String.format("%.1f", climate.getMain().getTemp_min());
+        String temp = String.format("%.1f", climate.getMain().getTemp());
+        String maxTemp = String.format("%.1f", climate.getMain().getTemp_max());
         lowestTempTextView.setText(minTemp);
         averageTempTextView.setText(temp);
         highestTempTextView.setText(maxTemp);
@@ -141,82 +132,72 @@ public class MainActivity extends BottomNavigationActivity implements MainContra
         recommendClothText();
         //collaspingLayout.setBackgroundResource(R.drawable.ic_logo);
         //textView.setText(Double.toString(climate.getMain().getTemp()));
-        //Log.e("onRecieve", Double.toString(climate.getMain().getTemp()));
+        //Log.d("onRecieve", Double.toString(climate.getMain().getTemp()));
 
     }
-    public void recommendClothText(){
-        if(tempAverage > 26.0){
+
+    public void recommendClothText() {
+        if (tempAverage > 26.0) {
             recommendUpText.setText("오늘 추천드릴 옷은 나시티, 반바지, 민소매입니다");
-        }else if(23.0<=tempAverage  && tempAverage <= 26.0){
+        } else if (23.0 <= tempAverage && tempAverage <= 26.0) {
             recommendUpText.setText("오늘 추천드릴 옷은 반팔, 반바지, 얇은 셔츠입니다");
-        }
-        else if(20.0<=tempAverage  && tempAverage < 23.0){
+        } else if (20.0 <= tempAverage && tempAverage < 23.0) {
             recommendUpText.setText("오늘 추천드릴 옷은 긴팔티, 면바지, 후드티입니다");
-        }
-        else if(17.0<=tempAverage  && tempAverage < 20.0){
+        } else if (17.0 <= tempAverage && tempAverage < 20.0) {
             recommendUpText.setText("오늘 추천드릴 옷은 니트, 맨투맨, 면바지입니다");
-        }
-        else if(12.0<=tempAverage  && tempAverage < 17.0){
+        } else if (12.0 <= tempAverage && tempAverage < 17.0) {
             recommendUpText.setText("오늘 추천드릴 옷은 자켓, 야상입니다");
-        }
-        else if(10.0<=tempAverage  && tempAverage < 12.0){
+        } else if (10.0 <= tempAverage && tempAverage < 12.0) {
             recommendUpText.setText("오늘 추천드릴 옷은 트렌치코트, 야상, 여러겹 입기입니다");
-        }
-        else if(6.0<=tempAverage  && tempAverage < 10.0){
+        } else if (6.0 <= tempAverage && tempAverage < 10.0) {
             recommendUpText.setText("오늘 추천드릴 옷은 코트, 가죽자켓입니다");
-        }
-        else if(0<=tempAverage  && tempAverage < 6.0){
+        } else if (0 <= tempAverage && tempAverage < 6.0) {
             recommendUpText.setText("오늘 추천드릴 옷은 패딩, 목도리입니다");
         }
     }
-    public void recommendClothImageView(){
-        if(tempAverage > 26.0){
+
+    public void recommendClothImageView() {
+        if (tempAverage > 26.0) {
             Glide.with(this).load(R.mipmap.sleeveless).into(recommendUpImageView);
             Glide.with(this).load(R.mipmap.shorts).into(recommendDownImageView);
-        }else if(23.0<=tempAverage  && tempAverage <= 26.0){
+        } else if (23.0 <= tempAverage && tempAverage <= 26.0) {
             Glide.with(this).load(R.mipmap.casual_t_shirt_).into(recommendUpImageView);
             Glide.with(this).load(R.mipmap.shorts).into(recommendDownImageView);
-        }
-        else if(20.0<=tempAverage  && tempAverage < 23.0){
+        } else if (20.0 <= tempAverage && tempAverage < 23.0) {
             Glide.with(this).load(R.mipmap.long_sleeves_t_shirt).into(recommendUpImageView);
             Glide.with(this).load(R.mipmap.long_pants).into(recommendDownImageView);
-        }
-        else if(17.0<=tempAverage  && tempAverage < 20.0){
+        } else if (17.0 <= tempAverage && tempAverage < 20.0) {
             Glide.with(this).load(R.mipmap.neat).into(recommendUpImageView);
             Glide.with(this).load(R.mipmap.long_pants).into(recommendDownImageView);
             recommendUpText.setText("오늘 추천드릴 옷은 니트, 맨투맨, 면바지입니다");
-        }
-        else if(12.0<=tempAverage  && tempAverage < 17.0){
+        } else if (12.0 <= tempAverage && tempAverage < 17.0) {
             Glide.with(this).load(R.mipmap.black_jacket).into(recommendUpImageView);
             Glide.with(this).load(R.mipmap.hoodie).into(recommendDownImageView);
             recommendUpText.setText("오늘 추천드릴 옷은 자켓, 야상입니다");
-        }
-        else if(10.0<=tempAverage  && tempAverage < 12.0){
+        } else if (10.0 <= tempAverage && tempAverage < 12.0) {
             Glide.with(this).load(R.mipmap.hoodie).into(recommendUpImageView);
             Glide.with(this).load(R.mipmap.coat).into(recommendDownImageView);
             recommendUpText.setText("오늘 추천드릴 옷은 트렌치코트, 야상, 여러겹 입기입니다");
-        }
-        else if(6.0<=tempAverage  && tempAverage < 10.0){
+        } else if (6.0 <= tempAverage && tempAverage < 10.0) {
             Glide.with(this).load(R.mipmap.coat).into(recommendUpImageView);
             Glide.with(this).load(R.mipmap.black_jacket).into(recommendDownImageView);
             recommendUpText.setText("오늘 추천드릴 옷은 코트, 가죽자켓입니다");
-        }
-        else if(0<=tempAverage  && tempAverage < 6.0){
+        } else if (0 <= tempAverage && tempAverage < 6.0) {
             Glide.with(this).load(R.mipmap.winter).into(recommendUpImageView);
             Glide.with(this).load(R.mipmap.scarf).into(recommendDownImageView);
             recommendUpText.setText("오늘 추천드릴 옷은 패딩, 목도리입니다");
         }
     }
 
-    public void weatherIconSelect(String description){
-        String iconType = description.replace("n","d");
-        Log.e("iconType", iconType);
-        Glide.with(this).load("http://openweathermap.org/img/wn/"+iconType+"@2x.png").into(weatherIcon);
+    public void weatherIconSelect(String description) {
+        String iconType = description.replace("n", "d");
+        Log.d("iconType", iconType);
+        Glide.with(this).load("http://openweathermap.org/img/wn/" + iconType + "@2x.png").into(weatherIcon);
     }
 
     @Override
     public void onRequestPermissionsResult(int permsRequestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        if ( permsRequestCode == PERMISSIONS_REQUEST_CODE && grantResults.length == REQUIRED_PERMISSIONS.length) {
+        if (permsRequestCode == PERMISSIONS_REQUEST_CODE && grantResults.length == REQUIRED_PERMISSIONS.length) {
 
             // 요청 코드가 PERMISSIONS_REQUEST_CODE 이고, 요청한 퍼미션 개수만큼 수신되었다면
 
@@ -233,12 +214,11 @@ public class MainActivity extends BottomNavigationActivity implements MainContra
             }
 
 
-            if ( check_result ) {
+            if (check_result) {
 
                 //위치 값을 가져올 수 있음
                 ;
-            }
-            else {
+            } else {
                 // 거부한 퍼미션이 있다면 앱을 사용할 수 없는 이유를 설명해주고 앱을 종료합니다.2 가지 경우가 있습니다.
 
                 if (ActivityCompat.shouldShowRequestPermissionRationale(this, REQUIRED_PERMISSIONS[0])
@@ -248,7 +228,7 @@ public class MainActivity extends BottomNavigationActivity implements MainContra
                     finish();
 
 
-                }else {
+                } else {
 
                     Toast.makeText(MainActivity.this, "퍼미션이 거부되었습니다. 설정(앱 정보)에서 퍼미션을 허용해야 합니다. ", Toast.LENGTH_LONG).show();
 
@@ -257,7 +237,8 @@ public class MainActivity extends BottomNavigationActivity implements MainContra
 
         }
     }
-    void checkRunTimePermission(){
+
+    void checkRunTimePermission() {
 
         //런타임 퍼미션 처리
         // 1. 위치 퍼미션을 가지고 있는지 체크합니다.
@@ -275,7 +256,6 @@ public class MainActivity extends BottomNavigationActivity implements MainContra
 
 
             // 3.  위치 값을 가져올 수 있음
-
 
 
         } else {  //2. 퍼미션 요청을 허용한 적이 없다면 퍼미션 요청이 필요합니다. 2가지 경우(3-1, 4-1)가 있습니다.
@@ -302,7 +282,7 @@ public class MainActivity extends BottomNavigationActivity implements MainContra
     }
 
 
-    public String getCurrentAddress( double latitude, double longitude) {
+    public String getCurrentAddress(double latitude, double longitude) {
 
         //지오코더... GPS를 주소로 변환
         Geocoder geocoder = new Geocoder(this, Locale.getDefault());
@@ -326,7 +306,6 @@ public class MainActivity extends BottomNavigationActivity implements MainContra
         }
 
 
-
         if (addresses == null || addresses.size() == 0) {
             Toast.makeText(this, "주소 미발견", Toast.LENGTH_LONG).show();
             return "주소 미발견";
@@ -334,7 +313,7 @@ public class MainActivity extends BottomNavigationActivity implements MainContra
         }
 
         Address address = addresses.get(0);
-        return address.getAddressLine(0).toString()+"\n";
+        return address.getAddressLine(0).toString() + "\n";
 
     }
 

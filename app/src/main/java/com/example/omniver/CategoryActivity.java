@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -56,7 +57,7 @@ public class CategoryActivity extends BottomNavigationActivity implements View.O
                     try {
                         photoFile = createImageFile();
                     } catch (IOException ex) {
-                        // Error occurred while creating the File
+                        Log.e(this.toString(), "Error occurred while creating the File");
                     }
 
                     if (photoFile != null) {
@@ -85,6 +86,7 @@ public class CategoryActivity extends BottomNavigationActivity implements View.O
         );
 
         // Save a file: path for use with ACTION_VIEW intents
+        Log.d(this.toString(), ".\n"+image.getAbsolutePath());
         currentPhotoPath = image.getAbsolutePath();
         return image;
     }
@@ -101,7 +103,6 @@ public class CategoryActivity extends BottomNavigationActivity implements View.O
     }
 
 
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
@@ -109,9 +110,6 @@ public class CategoryActivity extends BottomNavigationActivity implements View.O
             intent.putExtra("imagePath", currentPhotoPath);
             intent.putExtra("date",timeStamp);
             startActivity(intent);
-
-
-
 
 
 /*
@@ -135,7 +133,6 @@ public class CategoryActivity extends BottomNavigationActivity implements View.O
             }
 
             ((ImageView)findViewById(R.id.imageView)).setImageBitmap(rotate(bitmap, exifDegree));
-
  */
 
         }

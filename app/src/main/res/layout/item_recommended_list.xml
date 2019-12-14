@@ -45,22 +45,22 @@
             android:gravity="right">
 
             <ImageView
-                android:id="@+id/image1"
+                android:id="@+id/icon1"
                 android:src="@drawable/ic_logo"
                 android:layout_marginRight="10dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_width="60dp"
+                android:layout_height="60dp" />
             <ImageView
-                android:id="@+id/image2"
+                android:id="@+id/icon2"
                 android:src="@drawable/ic_logo"
                 android:layout_marginRight="10dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_width="60dp"
+                android:layout_height="60dp" />
             <ImageView
-                android:id="@+id/image3"
+                android:id="@+id/icon3"
                 android:src="@drawable/ic_logo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_width="60dp"
+                android:layout_height="60dp" />
 
         </LinearLayout>
 
