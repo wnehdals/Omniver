@@ -151,7 +151,7 @@ public class MainActivity extends BottomNavigationActivity implements MainContra
             recommendUpText.setText("오늘 추천드릴 옷은 트렌치코트, 야상, 여러겹 입기입니다");
         } else if (6.0 <= tempAverage && tempAverage < 10.0) {
             recommendUpText.setText("오늘 추천드릴 옷은 코트, 가죽자켓입니다");
-        } else if (0 <= tempAverage && tempAverage < 6.0) {
+        }else if(tempAverage < 6.0){
             recommendUpText.setText("오늘 추천드릴 옷은 패딩, 목도리입니다");
         }
     }
@@ -182,7 +182,8 @@ public class MainActivity extends BottomNavigationActivity implements MainContra
             Glide.with(this).load(R.mipmap.coat).into(recommendUpImageView);
             Glide.with(this).load(R.mipmap.black_jacket).into(recommendDownImageView);
             recommendUpText.setText("오늘 추천드릴 옷은 코트, 가죽자켓입니다");
-        } else if (0 <= tempAverage && tempAverage < 6.0) {
+        }
+        else if(tempAverage < 6.0){
             Glide.with(this).load(R.mipmap.winter).into(recommendUpImageView);
             Glide.with(this).load(R.mipmap.scarf).into(recommendDownImageView);
             recommendUpText.setText("오늘 추천드릴 옷은 패딩, 목도리입니다");
@@ -376,6 +377,5 @@ public class MainActivity extends BottomNavigationActivity implements MainContra
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        realm.close();
     }
 }

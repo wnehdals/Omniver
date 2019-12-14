@@ -1,8 +1,15 @@
 package com.example.omniver.evaluate_service;
 
+import android.util.Log;
+
 import com.example.omniver.model.Picture;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import io.realm.Realm;
+
+import static com.example.omniver.main_service.MainActivity.tempAverage;
 
 public class EvaluationInteractor {
     private Realm realm;
@@ -38,5 +45,7 @@ public class EvaluationInteractor {
         realm.close();
         return state;
     }
+
+
 }
 
