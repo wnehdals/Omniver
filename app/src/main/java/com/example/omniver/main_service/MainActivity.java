@@ -9,7 +9,6 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.text.Layout;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -24,7 +23,6 @@ import com.example.omniver.GpsTracker;
 import com.example.omniver.base.BottomNavigationActivity;
 import com.example.omniver.R;
 import com.example.omniver.model.Climate;
-import com.example.omniver.model.Picture;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -33,12 +31,7 @@ import java.util.List;
 import java.util.Locale;
 
 import io.realm.Realm;
-import io.realm.RealmResults;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
+
 
 public class MainActivity extends BottomNavigationActivity implements MainContract.View{
     private BottomNavListener bottomNavListener;
@@ -249,11 +242,8 @@ public class MainActivity extends BottomNavigationActivity implements MainContra
                     Toast.makeText(MainActivity.this, "퍼미션이 거부되었습니다. 앱을 다시 실행하여 퍼미션을 허용해주세요.", Toast.LENGTH_LONG).show();
                     finish();
 
-
                 }else {
-
                     Toast.makeText(MainActivity.this, "퍼미션이 거부되었습니다. 설정(앱 정보)에서 퍼미션을 허용해야 합니다. ", Toast.LENGTH_LONG).show();
-
                 }
             }
 
