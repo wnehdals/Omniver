@@ -46,10 +46,10 @@ class RecommendedListRecyclerAdapter extends RecyclerView.Adapter<RecommendedLis
     @Override
     public void onBindViewHolder(RecyclerViewHolder holder, int position) {
         if (icons[position].length == 3) {
-            //TODO
-            holder.icon1.setImageResource(icons[position][0]);
-            holder.icon2.setImageResource(icons[position][1]);
-            holder.icon3.setImageResource(icons[position][2]);
+            //TODO: 아이콘 표시
+            Glide.with(holder.icon1).load(icons[position][0]).into(holder.icon1);
+            Glide.with(holder.icon2).load(icons[position][1]).into(holder.icon2);
+            Glide.with(holder.icon3).load(icons[position][2]).into(holder.icon3);
         }
 
         holder.clothesText.setText(texts[position]);
