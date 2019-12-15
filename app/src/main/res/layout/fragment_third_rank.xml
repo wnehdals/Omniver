@@ -27,10 +27,11 @@
             android:orientation="horizontal">
             <TextView
                 android:id="@+id/third_date"
-                android:layout_width="120dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/bg_yellow_radius_24"
-                android:gravity="center"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
                 android:text="">
 
             </TextView>
@@ -39,10 +40,11 @@
                 android:layout_height="match_parent"/>
             <TextView
                 android:id="@+id/third_temp"
-                android:layout_width="60dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center"
                 android:background="@drawable/bg_yellow_radius_24"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
                 android:text="">
 
             </TextView>
@@ -51,16 +53,34 @@
                 android:layout_height="match_parent"/>
             <TextView
                 android:id="@+id/third_grade"
-                android:layout_width="60dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/bg_yellow_radius_24"
-                android:gravity="center"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
                 android:text="">
 
             </TextView>
 
         </LinearLayout>
     </LinearLayout>
-
+    <FrameLayout
+        android:id="@+id/initial_display_3"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center">
+            <Button
+                android:id="@+id/initial_button_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#00ff0000"
+                android:textSize="25sp"
+                android:text="사진을 찍어주세요"
+                android:onClick="goToCategoryActivity"/>
+        </LinearLayout>
+    </FrameLayout>
 
 </FrameLayout>

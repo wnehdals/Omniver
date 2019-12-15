@@ -1,6 +1,7 @@
 package com.example.omniver.myinfo_service;
 
 import android.app.ActionBar;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -8,6 +9,7 @@ import android.widget.Toolbar;
 
 import androidx.viewpager.widget.ViewPager;
 
+import com.example.omniver.CategoryActivity;
 import com.example.omniver.CustomActionbar;
 import com.example.omniver.R;
 import com.example.omniver.base.BottomNavigationActivity;
@@ -176,6 +178,10 @@ public class MyInfoActivity extends BottomNavigationActivity {
             }
 
         }
+    }
+    public void goToCategoryActivity(View view){
+        Intent intent = new Intent(this, CategoryActivity.class);
+        startActivity(intent);
     }
 
 
