@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/light_beige"
     android:orientation="vertical"
+    android:gravity="bottom"
     tools:context=".myinfo_service.MyInfoActivity">
-
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="590dp">
 
@@ -25,8 +25,7 @@
 
             </com.google.android.material.tabs.TabLayout>
         </androidx.viewpager.widget.ViewPager>
-    </LinearLayout>
+    </FrameLayout>
 
     <include layout="@layout/activity_bottom_navigation"></include>
-
-</LinearLayout>
+</FrameLayout>
