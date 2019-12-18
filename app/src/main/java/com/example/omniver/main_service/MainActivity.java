@@ -57,6 +57,7 @@ public class MainActivity extends BottomNavigationActivity implements MainContra
     private TextView recommendDownText;
     private ImageView recommendUpImageView;
     private ImageView recommendDownImageView;
+    private ImageView miniWeatherIcon;
 
 
     @Override
@@ -92,6 +93,7 @@ public class MainActivity extends BottomNavigationActivity implements MainContra
         recommendDownImageView = (ImageView) findViewById(R.id.recommend_cloth_down);
         recommendDownText = (TextView) findViewById(R.id.recommend_cloth_down_text);
         recommendUpText = (TextView) findViewById(R.id.recommend_cloth_up_text);
+        miniWeatherIcon = (ImageView)findViewById(R.id.mini_weather_icon);
         //mainPresenter.setView(this);
 
     }
@@ -119,7 +121,7 @@ public class MainActivity extends BottomNavigationActivity implements MainContra
         tempAverage = climate.getMain().getTemp();
         descriptionTextView.setText("오늘 날씨 : " + climate.getWeather().get(0).getMainWeather());
         humidityTextView.setText("습도 : " + Integer.toString(climate.getMain().getHumidity()));
-        windSpeedTextView.setText("풍속 : " + Double.toString(climate.getWind().getSpeed()));
+        windSpeedTextView.setText("풍속 : " + Double.toString(climate.getWind().getSpeed())+ "m/s");
         //Glide.with(this).load("http://openweathermap.org/img/wn/10d@2x.png").into(weatherIcon);
         weatherIconSelect(climate.getWeather().get(0).getIcon());
         String minTemp = String.format("%.1f", climate.getMain().getTemp_min());
@@ -194,18 +196,17 @@ public class MainActivity extends BottomNavigationActivity implements MainContra
         String iconType = description.replace("n", "d");
         Log.d("iconType", iconType);
         Glide.with(this).load("http://openweathermap.org/img/wn/" + iconType + "@2x.png").into(weatherIcon);
+        Glide.with(this).load("http://openweathermap.org/img/wn/" + iconType + "@2x.png").into(miniWeatherIcon);
     }
 
     @Override
     public void onRequestPermissionsResult(int permsRequestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         if (permsRequestCode == PERMISSIONS_REQUEST_CODE && grantResults.length == REQUIRED_PERMISSIONS.length) {
 
-            // 요청 코드가 PERMISSIONS_REQUEST_CODE 이고, 요청한 퍼미션 개수만큼 수신되었다면
 
             boolean check_result = true;
 
 
-            // 모든 퍼미션을 허용했는지 체크합니다.
 
             for (int result : grantResults) {
                 if (result != PackageManager.PERMISSION_GRANTED) {
@@ -217,17 +218,12 @@ public class MainActivity extends BottomNavigationActivity implements MainContra
 
             if (check_result) {
 
-                //위치 값을 가져올 수 있음
-                ;
             } else {
-                // 거부한 퍼미션이 있다면 앱을 사용할 수 없는 이유를 설명해주고 앱을 종료합니다.2 가지 경우가 있습니다.
-
                 if (ActivityCompat.shouldShowRequestPermissionRationale(this, REQUIRED_PERMISSIONS[0])
                         || ActivityCompat.shouldShowRequestPermissionRationale(this, REQUIRED_PERMISSIONS[1])) {
 
                     Toast.makeText(MainActivity.this, "퍼미션이 거부되었습니다. 앱을 다시 실행하여 퍼미션을 허용해주세요.", Toast.LENGTH_LONG).show();
                     finish();
-
 
                 } else {
 
@@ -242,7 +238,6 @@ public class MainActivity extends BottomNavigationActivity implements MainContra
     void checkRunTimePermission() {
 
         //런타임 퍼미션 처리
-        // 1. 위치 퍼미션을 가지고 있는지 체크합니다.
         int hasFineLocationPermission = ContextCompat.checkSelfPermission(MainActivity.this,
                 Manifest.permission.ACCESS_FINE_LOCATION);
         int hasCoarseLocationPermission = ContextCompat.checkSelfPermission(MainActivity.this,
@@ -252,28 +247,16 @@ public class MainActivity extends BottomNavigationActivity implements MainContra
         if (hasFineLocationPermission == PackageManager.PERMISSION_GRANTED &&
                 hasCoarseLocationPermission == PackageManager.PERMISSION_GRANTED) {
 
-            // 2. 이미 퍼미션을 가지고 있다면
-            // ( 안드로이드 6.0 이하 버전은 런타임 퍼미션이 필요없기 때문에 이미 허용된 걸로 인식합니다.)
 
-
-            // 3.  위치 값을 가져올 수 있음
-
-
-        } else {  //2. 퍼미션 요청을 허용한 적이 없다면 퍼미션 요청이 필요합니다. 2가지 경우(3-1, 4-1)가 있습니다.
-
-            // 3-1. 사용자가 퍼미션 거부를 한 적이 있는 경우에는
+        } else {
             if (ActivityCompat.shouldShowRequestPermissionRationale(MainActivity.this, REQUIRED_PERMISSIONS[0])) {
 
-                // 3-2. 요청을 진행하기 전에 사용자가에게 퍼미션이 필요한 이유를 설명해줄 필요가 있습니다.
                 Toast.makeText(MainActivity.this, "이 앱을 실행하려면 위치 접근 권한이 필요합니다.", Toast.LENGTH_LONG).show();
-                // 3-3. 사용자게에 퍼미션 요청을 합니다. 요청 결과는 onRequestPermissionResult에서 수신됩니다.
                 ActivityCompat.requestPermissions(MainActivity.this, REQUIRED_PERMISSIONS,
                         PERMISSIONS_REQUEST_CODE);
 
 
             } else {
-                // 4-1. 사용자가 퍼미션 거부를 한 적이 없는 경우에는 퍼미션 요청을 바로 합니다.
-                // 요청 결과는 onRequestPermissionResult에서 수신됩니다.
                 ActivityCompat.requestPermissions(MainActivity.this, REQUIRED_PERMISSIONS,
                         PERMISSIONS_REQUEST_CODE);
             }
@@ -285,11 +268,9 @@ public class MainActivity extends BottomNavigationActivity implements MainContra
 
     public String getCurrentAddress(double latitude, double longitude) {
 
-        //지오코더... GPS를 주소로 변환
         Geocoder geocoder = new Geocoder(this, Locale.getDefault());
 
-        List<Address> addresses;    //주의
-
+        List<Address> addresses;
         try {
 
             addresses = geocoder.getFromLocation(
@@ -319,7 +300,6 @@ public class MainActivity extends BottomNavigationActivity implements MainContra
     }
 
 
-    //여기부터는 GPS 활성화를 위한 메소드들
     private void showDialogForLocationServiceSetting() {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
@@ -353,7 +333,6 @@ public class MainActivity extends BottomNavigationActivity implements MainContra
 
             case GPS_ENABLE_REQUEST_CODE:
 
-                //사용자가 GPS 활성 시켰는지 검사
                 if (checkLocationServicesStatus()) {
                     if (checkLocationServicesStatus()) {
 
