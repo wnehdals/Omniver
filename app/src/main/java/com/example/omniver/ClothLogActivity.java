@@ -20,15 +20,13 @@ public class ClothLogActivity extends BottomNavigationActivity {
         navView = findViewById(R.id.nav_view);
         navView.setOnNavigationItemSelectedListener(bottomNavListener);
         init();
+    }
 
+    private void init() {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setCustomView(R.layout.actionbar_center);
         TextView title = findViewById(R.id.actionbar_title);
         title.setText("입은 옷 기록");
-    }
-
-    private void init() {
-
     }
 }

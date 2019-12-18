@@ -36,17 +36,11 @@ public class EvaluationActivity extends BottomNavigationActivity implements View
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_evaluation);
-        photo = (ImageView) findViewById(R.id.photo_image_view);
+        photo = findViewById(R.id.photo_image_view);
         Intent intent = getIntent();
         imagePath = intent.getStringExtra("imagePath");
         Glide.with(this).load(imagePath).into(photo);
         init();
-
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
-        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-        getSupportActionBar().setCustomView(R.layout.actionbar_center);
-        TextView title = findViewById(R.id.actionbar_title);
-        title.setText("평가");
     }
 
     public void init() {
@@ -54,12 +48,18 @@ public class EvaluationActivity extends BottomNavigationActivity implements View
         bottomNavListener = new BottomNavListener();
         navView = findViewById(R.id.nav_view);
         navView.setOnNavigationItemSelectedListener(bottomNavListener);
-        saveButton = (Button) findViewById(R.id.save_button);
+        saveButton = findViewById(R.id.save_button);
         saveButton.setOnClickListener(this);
-        upRatingbar = (RatingBar) findViewById(R.id.ratingbar_1);
+        upRatingbar = findViewById(R.id.ratingbar_1);
         upRatingbar.setOnRatingBarChangeListener(this);
         evaluationInteractor = new EvaluationInteractor();
         evaluationPresenter = new EvaluationPresenter(this, evaluationInteractor);
+
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setCustomView(R.layout.actionbar_center);
+        TextView title = findViewById(R.id.actionbar_title);
+        title.setText("평가");
     }
 
     @Override

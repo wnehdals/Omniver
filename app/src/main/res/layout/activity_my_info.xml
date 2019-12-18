@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/light_beige"
-    android:orientation="vertical"
     android:gravity="bottom"
+    android:orientation="vertical"
     tools:context=".myinfo_service.MyInfoActivity">
-    <FrameLayout
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="590dp">
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/viewpager"
@@ -24,8 +25,11 @@
                 android:background="@color/kaki">
 
             </com.google.android.material.tabs.TabLayout>
-        </androidx.viewpager.widget.ViewPager>
-    </FrameLayout>
 
-    <include layout="@layout/activity_bottom_navigation"></include>
-</FrameLayout>
+        </androidx.viewpager.widget.ViewPager>
+
+    </LinearLayout>
+
+    <include layout="@layout/activity_bottom_nav" />
+
+</LinearLayout>

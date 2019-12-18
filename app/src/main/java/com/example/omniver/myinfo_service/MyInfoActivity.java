@@ -57,12 +57,6 @@ public class MyInfoActivity extends BottomNavigationActivity {
         navView = findViewById(R.id.nav_view);
         navView.setOnNavigationItemSelectedListener(bottomNavListener);
         init();
-
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
-        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-        getSupportActionBar().setCustomView(R.layout.actionbar_center);
-        TextView title = findViewById(R.id.actionbar_title);
-        title.setText("내 정보");
     }
 
     public void init() {
@@ -71,15 +65,20 @@ public class MyInfoActivity extends BottomNavigationActivity {
         firstRankFragment = new FirstRankFragment();
         secondRankFragment = new SecondRankFragment();
         thirdRankFragment = new ThirdRankFragment();
-        viewPager = (ViewPager) findViewById(R.id.viewpager);
-        tabLayout = (TabLayout) findViewById(R.id.tablayout);
+        viewPager = findViewById(R.id.viewpager);
+        tabLayout = findViewById(R.id.tablayout);
         tabLayout.setupWithViewPager(viewPager);
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
         pictureArrayList = getPictureList();
-        pictureRankList = new TreeMap<Double, Integer>(Collections.reverseOrder());
+        pictureRankList = new TreeMap<>(Collections.reverseOrder());
         setRank(pictureArrayList);
         setupViewPager();
 
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setCustomView(R.layout.actionbar_center);
+        TextView title = findViewById(R.id.actionbar_title);
+        title.setText("내 정보");
     }
 
     public void setupViewPager() {

@@ -45,12 +45,6 @@ public class CategoryActivity extends BottomNavigationActivity implements View.O
         navView = findViewById(R.id.nav_view);
         navView.setOnNavigationItemSelectedListener(bottomNavListener);
         init();
-
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
-        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-        getSupportActionBar().setCustomView(R.layout.actionbar_center);
-        TextView title = findViewById(R.id.actionbar_title);
-        title.setText("카테고리");
     }
 
     public void init() {
@@ -60,6 +54,12 @@ public class CategoryActivity extends BottomNavigationActivity implements View.O
         tempClothDictionaryButton.setOnClickListener(this);
         clothLogButton = findViewById(R.id.cloth_log_button);
         clothLogButton.setOnClickListener(this);
+
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setCustomView(R.layout.actionbar_center);
+        TextView title = findViewById(R.id.actionbar_title);
+        title.setText("카테고리");
     }
 
     @Override
