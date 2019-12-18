@@ -4,10 +4,13 @@ import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toolbar;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.omniver.CategoryActivity;
@@ -34,9 +37,7 @@ import io.realm.RealmResults;
 
 import static com.example.omniver.main_service.MainActivity.tempAverage;
 
-public class MyInfoActivity extends BottomNavigationActivity {
-    private BottomNavListener bottomNavListener;
-    private BottomNavigationView navView;
+public class MyInfoActivity extends AppCompatActivity {
     private FirstRankFragment firstRankFragment;
     private SecondRankFragment secondRankFragment;
     private ThirdRankFragment thirdRankFragment;
@@ -53,16 +54,28 @@ public class MyInfoActivity extends BottomNavigationActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_info);
-        bottomNavListener = new BottomNavigationActivity.BottomNavListener();
-        navView = findViewById(R.id.nav_view);
-        navView.setOnNavigationItemSelectedListener(bottomNavListener);
+
         init();
 
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
-        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-        getSupportActionBar().setCustomView(R.layout.actionbar_center);
-        TextView title = findViewById(R.id.actionbar_title);
-        title.setText("내 정보");
+        BottomNavigationView navView = findViewById(R.id.nav_view);
+        navView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.navigation_menu1:
+                        Intent intent1 = new Intent(MyInfoActivity.this, CategoryActivity.class);
+                        startActivity(intent1);
+                        finish();
+                        return true;
+                    case R.id.navigation_menu2:
+                        finish();
+                        return true;
+                    case R.id.navigation_menu3:
+                        return true;
+                }
+                return true;
+            }
+        });
     }
 
     public void init() {
@@ -71,15 +84,20 @@ public class MyInfoActivity extends BottomNavigationActivity {
         firstRankFragment = new FirstRankFragment();
         secondRankFragment = new SecondRankFragment();
         thirdRankFragment = new ThirdRankFragment();
-        viewPager = (ViewPager) findViewById(R.id.viewpager);
-        tabLayout = (TabLayout) findViewById(R.id.tablayout);
+        viewPager = findViewById(R.id.viewpager);
+        tabLayout = findViewById(R.id.tablayout);
         tabLayout.setupWithViewPager(viewPager);
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
         pictureArrayList = getPictureList();
-        pictureRankList = new TreeMap<Double, Integer>(Collections.reverseOrder());
+        pictureRankList = new TreeMap<>(Collections.reverseOrder());
         setRank(pictureArrayList);
         setupViewPager();
 
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setCustomView(R.layout.actionbar_center);
+        TextView title = findViewById(R.id.actionbar_title);
+        title.setText("내 정보");
     }
 
     public void setupViewPager() {

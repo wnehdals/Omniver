@@ -10,19 +10,23 @@ import android.location.Geocoder;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import com.bumptech.glide.Glide;
+import com.example.omniver.CategoryActivity;
 import com.example.omniver.GpsTracker;
 import com.example.omniver.base.BottomNavigationActivity;
 import com.example.omniver.R;
 import com.example.omniver.model.Climate;
+import com.example.omniver.myinfo_service.MyInfoActivity;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -32,12 +36,10 @@ import java.util.Locale;
 
 import io.realm.Realm;
 
-public class MainActivity extends BottomNavigationActivity implements MainContract.View {
-    private BottomNavListener bottomNavListener;
+public class MainActivity extends AppCompatActivity implements MainContract.View {
     private TextView descriptionTextView;
     private TextView humidityTextView;
     private TextView windSpeedTextView;
-    private BottomNavigationView navView;
     private MainPresenter mainPresenter;
     private GpsTracker gpsTracker;
     private Climate climate;
@@ -58,14 +60,31 @@ public class MainActivity extends BottomNavigationActivity implements MainContra
     private ImageView recommendUpImageView;
     private ImageView recommendDownImageView;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        bottomNavListener = new BottomNavListener();
-        navView = findViewById(R.id.nav_view);
-        navView.setOnNavigationItemSelectedListener(bottomNavListener);
+
+        BottomNavigationView navView = findViewById(R.id.nav_view);
+        navView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            switch (item.getItemId()) {
+                case R.id.navigation_menu1:
+                    Intent intent1 = new Intent(MainActivity.this, CategoryActivity.class);
+                    startActivity(intent1);
+                    return true;
+                case R.id.navigation_menu2:
+                    return true;
+                case R.id.navigation_menu3:
+                    Intent intent3 = new Intent(MainActivity.this, MyInfoActivity.class);
+                    startActivity(intent3);
+                    return true;
+            }
+            return true;
+            }
+        });
+
         if (!checkLocationServicesStatus()) {
             showDialogForLocationServiceSetting();
         } else {
@@ -93,7 +112,6 @@ public class MainActivity extends BottomNavigationActivity implements MainContra
         recommendDownText = (TextView) findViewById(R.id.recommend_cloth_down_text);
         recommendUpText = (TextView) findViewById(R.id.recommend_cloth_up_text);
         //mainPresenter.setView(this);
-
     }
 
     @Override
@@ -111,7 +129,6 @@ public class MainActivity extends BottomNavigationActivity implements MainContra
 
         super.onStart();
     }
-
 
     @Override
     public void onReceiveClimateData(Climate climateData) {
@@ -133,7 +150,6 @@ public class MainActivity extends BottomNavigationActivity implements MainContra
         //collaspingLayout.setBackgroundResource(R.drawable.ic_logo);
         //textView.setText(Double.toString(climate.getMain().getTemp()));
         //Log.d("onRecieve", Double.toString(climate.getMain().getTemp()));
-
     }
 
     public void recommendClothText() {
@@ -151,7 +167,7 @@ public class MainActivity extends BottomNavigationActivity implements MainContra
             recommendUpText.setText("오늘 추천드릴 옷은 트렌치코트, 야상, 여러겹 입기입니다");
         } else if (6.0 <= tempAverage && tempAverage < 10.0) {
             recommendUpText.setText("오늘 추천드릴 옷은 코트, 가죽자켓입니다");
-        }else if(tempAverage < 6.0){
+        } else if (tempAverage < 6.0) {
             recommendUpText.setText("오늘 추천드릴 옷은 패딩, 목도리입니다");
         }
     }
@@ -182,8 +198,7 @@ public class MainActivity extends BottomNavigationActivity implements MainContra
             Glide.with(this).load(R.mipmap.coat).into(recommendUpImageView);
             Glide.with(this).load(R.mipmap.black_jacket).into(recommendDownImageView);
             recommendUpText.setText("오늘 추천드릴 옷은 코트, 가죽자켓입니다");
-        }
-        else if(tempAverage < 6.0){
+        } else if (tempAverage < 6.0) {
             Glide.with(this).load(R.mipmap.winter).into(recommendUpImageView);
             Glide.with(this).load(R.mipmap.scarf).into(recommendDownImageView);
             recommendUpText.setText("오늘 추천드릴 옷은 패딩, 목도리입니다");
@@ -204,9 +219,7 @@ public class MainActivity extends BottomNavigationActivity implements MainContra
 
             boolean check_result = true;
 
-
             // 모든 퍼미션을 허용했는지 체크합니다.
-
             for (int result : grantResults) {
                 if (result != PackageManager.PERMISSION_GRANTED) {
                     check_result = false;
@@ -214,11 +227,8 @@ public class MainActivity extends BottomNavigationActivity implements MainContra
                 }
             }
 
-
             if (check_result) {
-
                 //위치 값을 가져올 수 있음
-                ;
             } else {
                 // 거부한 퍼미션이 있다면 앱을 사용할 수 없는 이유를 설명해주고 앱을 종료합니다.2 가지 경우가 있습니다.
 
@@ -228,14 +238,10 @@ public class MainActivity extends BottomNavigationActivity implements MainContra
                     Toast.makeText(MainActivity.this, "퍼미션이 거부되었습니다. 앱을 다시 실행하여 퍼미션을 허용해주세요.", Toast.LENGTH_LONG).show();
                     finish();
 
-
                 } else {
-
                     Toast.makeText(MainActivity.this, "퍼미션이 거부되었습니다. 설정(앱 정보)에서 퍼미션을 허용해야 합니다. ", Toast.LENGTH_LONG).show();
-
                 }
             }
-
         }
     }
 
@@ -248,16 +254,13 @@ public class MainActivity extends BottomNavigationActivity implements MainContra
         int hasCoarseLocationPermission = ContextCompat.checkSelfPermission(MainActivity.this,
                 Manifest.permission.ACCESS_COARSE_LOCATION);
 
-
         if (hasFineLocationPermission == PackageManager.PERMISSION_GRANTED &&
                 hasCoarseLocationPermission == PackageManager.PERMISSION_GRANTED) {
 
             // 2. 이미 퍼미션을 가지고 있다면
             // ( 안드로이드 6.0 이하 버전은 런타임 퍼미션이 필요없기 때문에 이미 허용된 걸로 인식합니다.)
 
-
             // 3.  위치 값을 가져올 수 있음
-
 
         } else {  //2. 퍼미션 요청을 허용한 적이 없다면 퍼미션 요청이 필요합니다. 2가지 경우(3-1, 4-1)가 있습니다.
 
@@ -270,18 +273,14 @@ public class MainActivity extends BottomNavigationActivity implements MainContra
                 ActivityCompat.requestPermissions(MainActivity.this, REQUIRED_PERMISSIONS,
                         PERMISSIONS_REQUEST_CODE);
 
-
             } else {
                 // 4-1. 사용자가 퍼미션 거부를 한 적이 없는 경우에는 퍼미션 요청을 바로 합니다.
                 // 요청 결과는 onRequestPermissionResult에서 수신됩니다.
                 ActivityCompat.requestPermissions(MainActivity.this, REQUIRED_PERMISSIONS,
                         PERMISSIONS_REQUEST_CODE);
             }
-
         }
-
     }
-
 
     public String getCurrentAddress(double latitude, double longitude) {
 
@@ -291,11 +290,7 @@ public class MainActivity extends BottomNavigationActivity implements MainContra
         List<Address> addresses;    //주의
 
         try {
-
-            addresses = geocoder.getFromLocation(
-                    latitude,
-                    longitude,
-                    7);
+            addresses = geocoder.getFromLocation(latitude, longitude, 7);
         } catch (IOException ioException) {
             //네트워크 문제
             Toast.makeText(this, "지오코더 서비스 사용불가", Toast.LENGTH_LONG).show();
@@ -303,21 +298,16 @@ public class MainActivity extends BottomNavigationActivity implements MainContra
         } catch (IllegalArgumentException illegalArgumentException) {
             Toast.makeText(this, "잘못된 GPS 좌표", Toast.LENGTH_LONG).show();
             return "잘못된 GPS 좌표";
-
         }
-
 
         if (addresses == null || addresses.size() == 0) {
             Toast.makeText(this, "주소 미발견", Toast.LENGTH_LONG).show();
             return "주소 미발견";
-
         }
 
         Address address = addresses.get(0);
         return address.getAddressLine(0).toString() + "\n";
-
     }
-
 
     //여기부터는 GPS 활성화를 위한 메소드들
     private void showDialogForLocationServiceSetting() {
@@ -344,15 +334,12 @@ public class MainActivity extends BottomNavigationActivity implements MainContra
         builder.create().show();
     }
 
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
         switch (requestCode) {
-
             case GPS_ENABLE_REQUEST_CODE:
-
                 //사용자가 GPS 활성 시켰는지 검사
                 if (checkLocationServicesStatus()) {
                     if (checkLocationServicesStatus()) {
@@ -362,7 +349,6 @@ public class MainActivity extends BottomNavigationActivity implements MainContra
                         return;
                     }
                 }
-
                 break;
         }
     }

@@ -2,6 +2,7 @@ package com.example.omniver.base;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 
 import com.example.omniver.CategoryActivity;
@@ -18,8 +19,9 @@ public class BottomNavigationActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_bottom_navigation);
+        setContentView(R.layout.activity_bottom_nav);
         BottomNavigationView navView = findViewById(R.id.nav_view);
+
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         /*
@@ -30,14 +32,15 @@ public class BottomNavigationActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
         */
-
     }
-     public class BottomNavListener implements BottomNavigationView.OnNavigationItemSelectedListener{
+
+    public class BottomNavListener implements BottomNavigationView.OnNavigationItemSelectedListener {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_menu1:
                     Intent intent1 = new Intent(getApplicationContext(), CategoryActivity.class);
+                    Log.d(this.toString(), ".\n" + getApplicationContext().toString());
                     startActivity(intent1);
                     return true;
                 case R.id.navigation_menu2:
@@ -52,5 +55,4 @@ public class BottomNavigationActivity extends AppCompatActivity {
             return false;
         }
     }
-
 }

@@ -13,11 +13,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/light_gray"
-
         app:itemIconTint="@color/gray"
         app:itemTextColor="@color/gray"
-
-        app:menu="@menu/bottom_nav_menu" />
-
+        app:menu="@menu/menu_bottom_nav" />
 
 </LinearLayout>
