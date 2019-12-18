@@ -1,5 +1,6 @@
 package com.example.omniver;
 
+import android.app.ActionBar;
 import android.content.Intent;
 import android.media.ExifInterface;
 import android.net.Uri;
@@ -31,6 +32,7 @@ public class CategoryActivity extends BottomNavigationActivity implements View.O
     static final int SEND_CALCULATEACTIVITY = 2;
     private Button takePhotoButton;
     private Button tempClothDictionaryButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,17 +41,22 @@ public class CategoryActivity extends BottomNavigationActivity implements View.O
         navView = findViewById(R.id.nav_view);
         navView.setOnNavigationItemSelectedListener(bottomNavListener);
         init();
+
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setCustomView(R.layout.actionbar_category);
     }
-    public void init(){
-        takePhotoButton = (Button)findViewById(R.id.take_photo_button);
-        tempClothDictionaryButton = (Button)findViewById(R.id.recommended_list_button);
+
+    public void init() {
+        takePhotoButton = (Button) findViewById(R.id.take_photo_button);
+        tempClothDictionaryButton = (Button) findViewById(R.id.recommended_list_button);
         takePhotoButton.setOnClickListener(this);
         tempClothDictionaryButton.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.take_photo_button:
                 Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
@@ -74,6 +81,7 @@ public class CategoryActivity extends BottomNavigationActivity implements View.O
                 break;
         }
     }
+
     private File createImageFile() throws IOException {
         // Create an image file name
         timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
@@ -86,7 +94,7 @@ public class CategoryActivity extends BottomNavigationActivity implements View.O
         );
 
         // Save a file: path for use with ACTION_VIEW intents
-        Log.d(this.toString(), ".\n"+image.getAbsolutePath());
+        Log.d(this.toString(), ".\n" + image.getAbsolutePath());
         currentPhotoPath = image.getAbsolutePath();
         return image;
     }
@@ -108,7 +116,7 @@ public class CategoryActivity extends BottomNavigationActivity implements View.O
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             Intent intent = new Intent(CategoryActivity.this, EvaluationActivity.class);
             intent.putExtra("imagePath", currentPhotoPath);
-            intent.putExtra("date",timeStamp);
+            intent.putExtra("date", timeStamp);
             startActivity(intent);
 
 
