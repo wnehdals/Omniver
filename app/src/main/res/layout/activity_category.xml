@@ -32,7 +32,6 @@
             android:layout_height="wrap_content"
             android:text="입은 옷 기록 보기" />
 
-
     </LinearLayout>
 
     <include layout="@layout/activity_bottom_nav" />

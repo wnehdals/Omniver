@@ -4,10 +4,13 @@ import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toolbar;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.omniver.CategoryActivity;
@@ -34,9 +37,7 @@ import io.realm.RealmResults;
 
 import static com.example.omniver.main_service.MainActivity.tempAverage;
 
-public class MyInfoActivity extends BottomNavigationActivity {
-    private BottomNavListener bottomNavListener;
-    private BottomNavigationView navView;
+public class MyInfoActivity extends AppCompatActivity {
     private FirstRankFragment firstRankFragment;
     private SecondRankFragment secondRankFragment;
     private ThirdRankFragment thirdRankFragment;
@@ -53,10 +54,28 @@ public class MyInfoActivity extends BottomNavigationActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_info);
-        bottomNavListener = new BottomNavigationActivity.BottomNavListener();
-        navView = findViewById(R.id.nav_view);
-        navView.setOnNavigationItemSelectedListener(bottomNavListener);
+
         init();
+
+        BottomNavigationView navView = findViewById(R.id.nav_view);
+        navView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.navigation_menu1:
+                        Intent intent1 = new Intent(MyInfoActivity.this, CategoryActivity.class);
+                        startActivity(intent1);
+                        finish();
+                        return true;
+                    case R.id.navigation_menu2:
+                        finish();
+                        return true;
+                    case R.id.navigation_menu3:
+                        return true;
+                }
+                return true;
+            }
+        });
     }
 
     public void init() {
