@@ -4,22 +4,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/light_beige"
     android:gravity="bottom"
     android:orientation="vertical"
-    android:background="@color/light_beige"
     tools:context=".CategoryActivity">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="544dp"
         android:orientation="vertical">
 
-
-
         <Button
             android:id="@+id/take_photo_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="사진찍기" />
+            android:text="사진 찍기" />
 
         <Button
             android:id="@+id/recommended_list_button"
@@ -27,10 +26,15 @@
             android:layout_height="wrap_content"
             android:text="기온 별 옷차림 보기" />
 
+        <Button
+            android:id="@+id/cloth_log_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="입은 옷 기록 보기" />
+
+
     </LinearLayout>
 
-    <include
-        layout="@layout/activity_bottom_navigation">
-    </include>
+    <include layout="@layout/activity_bottom_navigation"></include>
 
 </LinearLayout>

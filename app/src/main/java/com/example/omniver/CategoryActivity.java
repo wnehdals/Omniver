@@ -10,6 +10,7 @@ import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.core.content.FileProvider;
 
@@ -30,13 +31,16 @@ public class CategoryActivity extends BottomNavigationActivity implements View.O
     private Uri photoUri;
     static final int REQUEST_IMAGE_CAPTURE = 1;
     static final int SEND_CALCULATEACTIVITY = 2;
+
     private Button takePhotoButton;
     private Button tempClothDictionaryButton;
+    private Button clothLogButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category);
+
         bottomNavListener = new BottomNavListener();
         navView = findViewById(R.id.nav_view);
         navView.setOnNavigationItemSelectedListener(bottomNavListener);
@@ -44,14 +48,18 @@ public class CategoryActivity extends BottomNavigationActivity implements View.O
 
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-        getSupportActionBar().setCustomView(R.layout.actionbar_category);
+        getSupportActionBar().setCustomView(R.layout.actionbar_center);
+        TextView title = findViewById(R.id.actionbar_title);
+        title.setText("카테고리");
     }
 
     public void init() {
-        takePhotoButton = (Button) findViewById(R.id.take_photo_button);
-        tempClothDictionaryButton = (Button) findViewById(R.id.recommended_list_button);
+        takePhotoButton = findViewById(R.id.take_photo_button);
         takePhotoButton.setOnClickListener(this);
+        tempClothDictionaryButton = findViewById(R.id.recommended_list_button);
         tempClothDictionaryButton.setOnClickListener(this);
+        clothLogButton = findViewById(R.id.cloth_log_button);
+        clothLogButton.setOnClickListener(this);
     }
 
     @Override
@@ -78,6 +86,10 @@ public class CategoryActivity extends BottomNavigationActivity implements View.O
             case R.id.recommended_list_button:
                 Intent recommendedListIntent = new Intent(this, RecommendedListActivity.class);
                 startActivity(recommendedListIntent);
+                break;
+            case R.id.cloth_log_button:
+                Intent clothLogIntent = new Intent(this, ClothLogActivity.class);
+                startActivity(clothLogIntent);
                 break;
         }
     }

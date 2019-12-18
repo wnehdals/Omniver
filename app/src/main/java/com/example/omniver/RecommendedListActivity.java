@@ -4,7 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.ActionBar;
 import android.os.Bundle;
+import android.widget.TextView;
 
 public class RecommendedListActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
@@ -45,5 +47,11 @@ public class RecommendedListActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
         mAdapter = new RecommendedListRecyclerAdapter(icons, texts, temperatures1, temperatures2);
         recyclerView.setAdapter(mAdapter);
+
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setCustomView(R.layout.actionbar_center);
+        TextView title = findViewById(R.id.actionbar_title);
+        title.setText("기온별 옷차림");
     }
 }
