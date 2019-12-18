@@ -18,9 +18,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/customTheme">
-        <activity android:name=".RecommendedListActivity"></activity>
-        <activity android:name=".evaluate_service.EvaluationActivity"
-            android:label="@string/app_name_evaluate"/>
+        <activity android:name=".ClothLogActivity"></activity>
+        <activity android:name=".RecommendedListActivity" />
+        <activity
+            android:name=".evaluate_service.EvaluationActivity"
+            android:label="@string/app_name_evaluate" />
 
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -46,14 +48,15 @@
         <activity
             android:name=".base.BottomNavigationActivity"
             android:label="@string/title_activity_bottom_navigation" />
-        <activity android:name=".CategoryActivity"
+        <activity
+            android:name=".CategoryActivity"
             android:label="@string/app_name_category"
-            android:launchMode="singleTask"/>
+            android:launchMode="singleTask" />
         <activity
             android:name=".main_service.MainActivity"
-            android:theme="@style/AppTheme"
+            android:label="@string/app_name"
             android:launchMode="singleTask"
-            android:label="@string/app_name" />
+            android:theme="@style/AppTheme" />
     </application>
 
 </manifest>
