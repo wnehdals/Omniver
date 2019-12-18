@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -13,7 +12,6 @@
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:background="@color/beige">
-
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:id="@+id/collasing_toolbar"
@@ -36,9 +34,7 @@
                     <ImageView
                         android:id="@+id/weather_icon"
                         android:layout_width="match_parent"
-                        android:layout_height="144dp">
-
-                    </ImageView>
+                        android:layout_height="144dp" />
 
                 </LinearLayout>
 
@@ -82,11 +78,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 app:layout_collapseMode="pin"
-                app:title="Omniver">
-
-            </androidx.appcompat.widget.Toolbar>
+                app:title="Omniver" />
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
+
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.core.widget.NestedScrollView
@@ -123,9 +118,10 @@
                         android:id="@+id/current_place_info"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="위치정보를 불러올수 없습니다"></TextView>
+                        android:text="위치정보를 불러올수 없습니다" />
 
                 </LinearLayout>
+
                 <!-- 하얀색-->
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -251,7 +247,6 @@
 
                             </LinearLayout>
 
-
                         </LinearLayout>
 
                     </LinearLayout>
@@ -259,12 +254,13 @@
                     <TextView
                         android:layout_width="20dp"
                         android:layout_height="match_parent" />
+
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
-                    android:background="@color/light_beige"></LinearLayout>
+                    android:background="@color/light_beige" />
 
             </LinearLayout>
 
@@ -284,47 +280,55 @@
                     android:background="@drawable/bg_kaki_radius_24"
                     android:gravity="left"
                     android:orientation="vertical">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="20dp"
-                        android:text=""/>
+                        android:text="" />
+
                     <TextView
                         android:id="@+id/recommend_cloth_up_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
-                        android:text=""/>
+                        android:text="" />
+
                     <TextView
                         android:id="@+id/recommend_cloth_down_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
-                        android:text=""/>
+                        android:text="" />
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="center"
                         android:orientation="horizontal">
+
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:gravity="center"
-                            android:layout_weight="1">
+                            android:layout_weight="1"
+                            android:gravity="center">
+
                             <ImageView
                                 android:id="@+id/recommend_cloth_up"
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"/>
+                                android:layout_height="wrap_content" />
 
                         </LinearLayout>
+
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:gravity="center"
-                            android:layout_weight="1">
+                            android:layout_weight="1"
+                            android:gravity="center">
+
                             <ImageView
                                 android:id="@+id/recommend_cloth_down"
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"/>
+                                android:layout_height="wrap_content" />
 
                         </LinearLayout>
 
@@ -334,14 +338,13 @@
 
                 <TextView
                     android:layout_width="20dp"
-                    android:layout_height="match_parent"></TextView>
+                    android:layout_height="match_parent" />
             </LinearLayout>
-
 
         </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>
 
+    <include layout="@layout/activity_bottom_nav" />
 
-    <include layout="@layout/activity_bottom_navigation"></include>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

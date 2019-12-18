@@ -8,14 +8,17 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
 
-import com.example.omniver.base.BottomNavigationActivity;
 import com.example.omniver.evaluate_service.EvaluationActivity;
+import com.example.omniver.myinfo_service.MyInfoActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.io.File;
@@ -23,9 +26,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class CategoryActivity extends BottomNavigationActivity implements View.OnClickListener {
-    private BottomNavListener bottomNavListener;
-    private BottomNavigationView navView;
+public class CategoryActivity extends AppCompatActivity implements View.OnClickListener {
     public String currentPhotoPath;
     private String timeStamp;
     private Uri photoUri;
@@ -41,16 +42,27 @@ public class CategoryActivity extends BottomNavigationActivity implements View.O
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category);
 
-        bottomNavListener = new BottomNavListener();
-        navView = findViewById(R.id.nav_view);
-        navView.setOnNavigationItemSelectedListener(bottomNavListener);
         init();
 
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
-        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-        getSupportActionBar().setCustomView(R.layout.actionbar_center);
-        TextView title = findViewById(R.id.actionbar_title);
-        title.setText("카테고리");
+        BottomNavigationView navView = findViewById(R.id.nav_view);
+        navView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.navigation_menu1:
+                        return true;
+                    case R.id.navigation_menu2:
+                        finish();
+                        return true;
+                    case R.id.navigation_menu3:
+                        Intent intent3 = new Intent(CategoryActivity.this, MyInfoActivity.class);
+                        startActivity(intent3);
+                        finish();
+                        return true;
+                }
+                return true;
+            }
+        });
     }
 
     public void init() {
@@ -60,6 +72,12 @@ public class CategoryActivity extends BottomNavigationActivity implements View.O
         tempClothDictionaryButton.setOnClickListener(this);
         clothLogButton = findViewById(R.id.cloth_log_button);
         clothLogButton.setOnClickListener(this);
+
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setCustomView(R.layout.actionbar_center);
+        TextView title = findViewById(R.id.actionbar_title);
+        title.setText("카테고리");
     }
 
     @Override
@@ -69,6 +87,7 @@ public class CategoryActivity extends BottomNavigationActivity implements View.O
                 Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
                     File photoFile = null;
+
                     try {
                         photoFile = createImageFile();
                     } catch (IOException ex) {
@@ -83,12 +102,14 @@ public class CategoryActivity extends BottomNavigationActivity implements View.O
                     }
                 }
                 break;
+
             case R.id.recommended_list_button:
                 Intent recommendedListIntent = new Intent(this, RecommendedListActivity.class);
                 startActivity(recommendedListIntent);
                 break;
+
             case R.id.cloth_log_button:
-                Intent clothLogIntent = new Intent(this, ClothLogActivity.class);
+                Intent clothLogIntent = new Intent(this, ClothesLogActivity.class);
                 startActivity(clothLogIntent);
                 break;
         }
@@ -122,7 +143,6 @@ public class CategoryActivity extends BottomNavigationActivity implements View.O
         return 0;
     }
 
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
@@ -130,7 +150,6 @@ public class CategoryActivity extends BottomNavigationActivity implements View.O
             intent.putExtra("imagePath", currentPhotoPath);
             intent.putExtra("date", timeStamp);
             startActivity(intent);
-
 
 /*
             Bitmap bitmap = BitmapFactory.decodeFile(currentPhotoPath);
@@ -152,10 +171,8 @@ public class CategoryActivity extends BottomNavigationActivity implements View.O
                 exifDegree = 0;
             }
 
-            ((ImageView)findViewById(R.id.imageView)).setImageBitmap(rotate(bitmap, exifDegree));
+            ((ImageView)findViewById(R.id.image)).setImageBitmap(rotate(bitmap, exifDegree));
  */
-
         }
     }
-
 }

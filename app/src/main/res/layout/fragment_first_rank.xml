@@ -4,85 +4,85 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     tools:context=".myinfo_service.FirstRankFragment">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="40dp">
+            android:layout_height="40dp" />
 
-        </TextView>
         <ImageView
             android:id="@+id/my_first_picture"
             android:layout_width="300dp"
             android:layout_height="400dp"
-            android:layout_gravity="center_horizontal">
+            android:layout_gravity="center_horizontal" />
 
-        </ImageView>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
             android:orientation="horizontal">
+
             <TextView
                 android:id="@+id/first_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/bg_yellow_radius_24"
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp"
-                android:text=""
-                tools:text="# 2017. 06. 06">
+                android:paddingHorizontal="15dp"
+                tools:text="# 2017. 06. 06" />
 
-            </TextView>
             <TextView
                 android:layout_width="30dp"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent" />
+
             <TextView
                 android:id="@+id/first_temp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/bg_yellow_radius_24"
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp"
-                android:text=""
-                tools:text="# 30.4°C">
+                android:paddingHorizontal="15dp"
+                tools:text="# 30.4°C" />
 
-            </TextView>
             <TextView
                 android:layout_width="30dp"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent" />
+
             <TextView
                 android:id="@+id/first_grade"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/bg_yellow_radius_24"
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp"
-                android:text=""
-                tools:text="# 3.5점">
-
-            </TextView>
+                android:paddingHorizontal="15dp"
+                tools:text="# 3.5점" />
 
         </LinearLayout>
+
     </LinearLayout>
+
     <FrameLayout
         android:id="@+id/initial_display_1"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center">
+
             <Button
                 android:id="@+id/initial_button_1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="#00ff0000"
-                android:textSize="25sp"
+                android:onClick="goToCategoryActivity"
                 android:text="사진을 찍어주세요"
-                android:onClick="goToCategoryActivity"/>
+                android:textSize="25sp" />
+
         </LinearLayout>
+
     </FrameLayout>
+
 </FrameLayout>

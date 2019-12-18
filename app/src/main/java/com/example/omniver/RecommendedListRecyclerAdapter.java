@@ -10,16 +10,16 @@ import com.bumptech.glide.Glide;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-class RecommendedListRecyclerAdapter extends RecyclerView.Adapter<RecommendedListRecyclerAdapter.RecyclerViewHolder> {
+class RecommendedListRecyclerAdapter extends RecyclerView.Adapter<RecommendedListRecyclerAdapter.ViewHolder> {
     private int[][] icons;
     private String[] texts;
     private String[] temps1, temps2;
 
-    public static class RecyclerViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
         public ImageView icon1, icon2;
         public TextView clothesText, temp1Text, temp2Text;
 
-        public RecyclerViewHolder(View v) {
+        public ViewHolder(View v) {
             super(v);
             icon1 = v.findViewById(R.id.icon1);
             icon2 = v.findViewById(R.id.icon2);
@@ -37,13 +37,13 @@ class RecommendedListRecyclerAdapter extends RecyclerView.Adapter<RecommendedLis
     }
 
     @Override
-    public RecommendedListRecyclerAdapter.RecyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_recommended_list, parent, false);
-        RecyclerViewHolder vh = new RecyclerViewHolder(v);
+        ViewHolder vh = new ViewHolder(v);
         return vh;
     }
     @Override
-    public void onBindViewHolder(RecyclerViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, int position) {
         Glide.with(holder.icon1).load(icons[position][0]).into(holder.icon1);
         Glide.with(holder.icon2).load(icons[position][1]).into(holder.icon2);
 
