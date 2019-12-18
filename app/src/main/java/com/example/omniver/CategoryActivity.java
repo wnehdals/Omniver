@@ -17,7 +17,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
 
-import com.example.omniver.base.BottomNavigationActivity;
 import com.example.omniver.evaluate_service.EvaluationActivity;
 import com.example.omniver.myinfo_service.MyInfoActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -110,7 +109,7 @@ public class CategoryActivity extends AppCompatActivity implements View.OnClickL
                 break;
 
             case R.id.cloth_log_button:
-                Intent clothLogIntent = new Intent(this, ClothLogActivity.class);
+                Intent clothLogIntent = new Intent(this, ClothesLogActivity.class);
                 startActivity(clothLogIntent);
                 break;
         }
@@ -172,7 +171,7 @@ public class CategoryActivity extends AppCompatActivity implements View.OnClickL
                 exifDegree = 0;
             }
 
-            ((ImageView)findViewById(R.id.imageView)).setImageBitmap(rotate(bitmap, exifDegree));
+            ((ImageView)findViewById(R.id.image)).setImageBitmap(rotate(bitmap, exifDegree));
  */
         }
     }

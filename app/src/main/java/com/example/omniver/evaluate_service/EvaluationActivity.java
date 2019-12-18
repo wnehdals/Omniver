@@ -99,7 +99,6 @@ public class EvaluationActivity extends AppCompatActivity implements View.OnClic
     @Override
     public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
         grade = v;
-        Log.e("ratingbar", Float.toString(v));
     }
 
     @Override

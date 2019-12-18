@@ -18,7 +18,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/customTheme">
-        <activity android:name=".ClothLogActivity"></activity>
+        <activity android:name=".ClothesLogActivity"></activity>
         <activity android:name=".RecommendedListActivity" />
         <activity
             android:name=".evaluate_service.EvaluationActivity"

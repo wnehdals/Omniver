@@ -103,7 +103,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         windSpeedTextView = (TextView) findViewById(R.id.windspeed);
         weatherIcon = (ImageView) findViewById(R.id.weather_icon);
         collaspingLayout = (CollapsingToolbarLayout) findViewById(R.id.collasing_toolbar);
-        //textView = (TextView)findViewById(R.id.temp);
+        //temperatureText = (TextView)findViewById(R.id.temp);
         mainInteractor = new MainInteractor();
         mainPresenter = new MainPresenter(this, mainInteractor);
         realm.init(this);
@@ -148,7 +148,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         recommendClothImageView();
         recommendClothText();
         //collaspingLayout.setBackgroundResource(R.drawable.ic_logo);
-        //textView.setText(Double.toString(climate.getMain().getTemp()));
+        //temperatureText.setText(Double.toString(climate.getMain().getTemp()));
         //Log.d("onRecieve", Double.toString(climate.getMain().getTemp()));
     }
 

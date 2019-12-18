@@ -7,16 +7,13 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toolbar;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.omniver.CategoryActivity;
-import com.example.omniver.CustomActionbar;
 import com.example.omniver.R;
-import com.example.omniver.base.BottomNavigationActivity;
 import com.example.omniver.model.Picture;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.tabs.TabLayout;
@@ -28,7 +25,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.TreeMap;
 
@@ -104,7 +100,8 @@ public class MyInfoActivity extends AppCompatActivity {
         boolean zeroFlag = false;
         boolean firstFlag = false;
         boolean secondFlag = false;
-        boolean thridFlag = false;
+        boolean thirdFlag = false;
+
         if (pictureArrayList.size() == 0) {
             zeroFlag = true;
         } else if (pictureArrayList.size() == 1) {
@@ -118,7 +115,7 @@ public class MyInfoActivity extends AppCompatActivity {
             zeroFlag = true;
             firstFlag = true;
             secondFlag = true;
-            thridFlag = true;
+            thirdFlag = true;
         }
 
         if (firstFlag) {
@@ -139,14 +136,14 @@ public class MyInfoActivity extends AppCompatActivity {
             secondBundle.putDouble("temp", pictureArrayList.get(index[1]).getTemperature());
             secondRankFragment.setArguments(secondBundle);
         }
-        if (thridFlag) {
-            Bundle thridBundle = new Bundle();
-            thridBundle.putString("img", pictureArrayList.get(index[2]).getImageUrl());
-            thridBundle.putString("date", pictureArrayList.get(index[2]).getYear() + "." + pictureArrayList.get(index[2]).getMonth() + "." +
+        if (thirdFlag) {
+            Bundle thirdBundle = new Bundle();
+            thirdBundle.putString("img", pictureArrayList.get(index[2]).getImageUrl());
+            thirdBundle.putString("date", pictureArrayList.get(index[2]).getYear() + "." + pictureArrayList.get(index[2]).getMonth() + "." +
                     pictureArrayList.get(index[2]).getDay());
-            thridBundle.putFloat("grade", pictureArrayList.get(index[2]).getGrade());
-            thridBundle.putDouble("temp", pictureArrayList.get(index[2]).getTemperature());
-            thirdRankFragment.setArguments(thridBundle);
+            thirdBundle.putFloat("grade", pictureArrayList.get(index[2]).getGrade());
+            thirdBundle.putDouble("temp", pictureArrayList.get(index[2]).getTemperature());
+            thirdRankFragment.setArguments(thirdBundle);
         }
 
         pagerAdapter.addFragment(firstRankFragment, "1순위");
@@ -159,15 +156,14 @@ public class MyInfoActivity extends AppCompatActivity {
         List<Picture> list = new ArrayList<>();
 
         try {
-            realm = Realm.getDefaultInstance();/*
-            final RealmResults<Picture> result = realm.where(Picture.class).findAll();
-            realm.executeTransaction(new Realm.Transaction(){
-                @Override
-                public void execute(Realm realm) {
-                    result.deleteAllFromRealm();
-                }
-            });
-            */
+            realm = Realm.getDefaultInstance();
+//            final RealmResults<Picture> result = realm.where(Picture.class).findAll();
+//            realm.executeTransaction(new Realm.Transaction(){
+//                @Override
+//                public void execute(Realm realm) {
+//                    result.deleteAllFromRealm();
+//                }
+//            });
 
             RealmResults<Picture> results = realm
                     .where(Picture.class)
@@ -178,7 +174,7 @@ public class MyInfoActivity extends AppCompatActivity {
                 realm.close();
             }
         }
-        Log.e("realmcoujnt", Integer.toString(list.size()));
+        Log.d("realmcount", Integer.toString(list.size()));
         return list;
     }
 
@@ -186,7 +182,7 @@ public class MyInfoActivity extends AppCompatActivity {
         double result = 0;
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         result = grade * 10 + (45 - (Math.abs(tempAverage - temperature))) + (5 - (Math.abs(month - Integer.parseInt(timeStamp.substring(4, 6)))));
-        Log.e("clal", Float.toString(grade * 5) + "+" + Double.toString(45 - (Math.abs(tempAverage - temperature))) + "+" + Integer.toString(5 - (Math.abs(month - Integer.parseInt(timeStamp.substring(4, 6))))));
+        Log.d("clal", Float.toString(grade * 5) + "+" + Double.toString(45 - (Math.abs(tempAverage - temperature))) + "+" + Integer.toString(5 - (Math.abs(month - Integer.parseInt(timeStamp.substring(4, 6))))));
         return result;
     }
 
@@ -205,14 +201,12 @@ public class MyInfoActivity extends AppCompatActivity {
             } catch (NoSuchElementException e) {
                 e.printStackTrace();
             }
-
         }
     }
 
     public void goToCategoryActivity(View view) {
         Intent intent = new Intent(this, CategoryActivity.class);
         startActivity(intent);
+        finish();
     }
-
-
 }
